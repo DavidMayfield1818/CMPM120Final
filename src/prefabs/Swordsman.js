@@ -23,7 +23,34 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        
+        if(this.scene.left.isDown && this.scene.up.isDown) {
+            this.setVelocityX(-354);
+            this.setVelocityY(-354);
+        } else if(this.scene.left.isDown && this.scene.down.isDown) {
+            this.setVelocityX(-354);
+            this.setVelocityY(354);
+        } else if(this.scene.right.isDown && this.scene.up.isDown) {
+            this.setVelocityX(354);
+            this.setVelocityY(-354);
+        } else if(this.scene.right.isDown && this.scene.down.isDown) {
+            this.setVelocityX(354);
+            this.setVelocityY(354);
+        } else if(this.scene.left.isDown) {
+            this.setVelocityX(-500);
+            this.setVelocityY(0);
+        } else if(this.scene.right.isDown) {
+            this.setVelocityX(500);
+            this.setVelocityY(0);
+        } else if(this.scene.up.isDown) {
+            this.setVelocityX(0);
+            this.setVelocityY(-500);
+        } else if(this.scene.down.isDown) {
+            this.setVelocityX(0);
+            this.setVelocityY(500);
+        } else {
+            this.setVelocityX(0);
+            this.setVelocityY(0);
+        }
     }
 
     attack(inX, inY) {

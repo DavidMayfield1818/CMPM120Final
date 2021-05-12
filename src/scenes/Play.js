@@ -4,6 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.left = this.input.keyboard.addKey('A');
+        this.right = this.input.keyboard.addKey('D');
+        this.up = this.input.keyboard.addKey('W');
+        this.down = this.input.keyboard.addKey('S');
+
         this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
 
         // cooldowns
@@ -20,6 +25,8 @@ class Play extends Phaser.Scene {
         }
         this.attackText = this.add.text(10,10,'Attack:' + this.player.attackOnCooldown, this.cooldownConfig);
         this.sheathText = this.add.text(10,30,'Sheath:' + this.player.sheathOnCooldown, this.cooldownConfig);
+
+        this.cameras.main.startFollow(this.player);
     }
 
     update() {
