@@ -5,6 +5,7 @@ class Load extends Phaser.Scene {
 
     preload() {
         // asset loading
+        this.load.image('Background', 'tempBackground.png');
 
     }
 

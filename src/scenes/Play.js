@@ -10,7 +10,8 @@ class Play extends Phaser.Scene {
         this.down = this.input.keyboard.addKey('S');
 
         this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
-
+        //background
+        this.backGround = this.add.tileSprite(0,0,512,768,'Background').setOrigin(0,0);
         // cooldowns
         this.cooldownConfig = {
             fontFamily: 'Courier',
