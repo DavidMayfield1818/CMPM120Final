@@ -8,6 +8,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.inAttack = false;
         this.attackOnCooldown = false;
         this.sheathOnCooldown = false;
+        this.attackRange = 25;
 
         // mouse input
         this.scene.input.mouse.disableContextMenu();
@@ -58,6 +59,22 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             console.log('attack on cooldown');
         } else {
             console.log('attacked location (' + inX + ',' + inY + ')');
+            
+            // find base vector values AKA set origin to 0,0
+            let distX = inX - this.x;
+            let distY = inY - this.y;
+            // use those to determine vector length
+            let length = Math.sqrt((distX*distX)+(distY*distY));
+            // divide by length to get length to 1; a/a =1
+            distX /= length;
+            distY /= length;
+            // multiply by distance; 1*x = x
+            distX *= this.attackRange;
+            distY *= this.attackRange;
+            // add it to the orginal coords as previous to remove 0,0 origin
+            let atkCrdX = this.x + distX;
+            let atkCrdY = this.y + distY;
+
             this.inAnim(300);
             this.attackOnCooldown = true;
             this.scene.time.addEvent({
