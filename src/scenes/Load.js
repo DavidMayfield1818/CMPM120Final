@@ -4,9 +4,12 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
+        this.load.path = './assets/';
         // asset loading
         this.load.image('Background', 'tempBackground.png');
-
+        
+        this.load.image('mappng','maptile.png');
+        this.load.tilemapTiledJSON('mapjs','mapjs.json')
     }
 
     create() {
