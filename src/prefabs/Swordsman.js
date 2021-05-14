@@ -9,6 +9,8 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.attackOnCooldown = false;
         this.sheathOnCooldown = false;
         this.attackRange = 25;
+        this.baseMoveSpeed = 200;
+        this.moveSpeed = this.baseMoveSpeed;
 
         // mouse input
         this.scene.input.mouse.disableContextMenu();
@@ -17,7 +19,9 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
                 if(pointer.rightButtonDown()){
                     this.sheath();
                 } else {
-                    this.attack(Phaser.Math.RoundTo(pointer.x,-1),Phaser.Math.RoundTo(pointer.y,-1));
+                    let tempX = this.x + pointer.x - game.config.width/2;
+                    let tempY = this.y + pointer.y - game.config.height/2;
+                    this.attack(Phaser.Math.RoundTo(tempX,-1),Phaser.Math.RoundTo(tempY,-1));
                 }
             }
         }, this);
@@ -25,32 +29,34 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
     update() {
         if(this.scene.left.isDown && this.scene.up.isDown) {
-            this.setVelocityX(-354);
-            this.setVelocityY(-354);
+            this.setVelocityX(this.moveSpeed * -0.7);
+            this.setVelocityY(this.moveSpeed * -0.7);
         } else if(this.scene.left.isDown && this.scene.down.isDown) {
-            this.setVelocityX(-354);
-            this.setVelocityY(354);
+            this.setVelocityX(this.moveSpeed * -0.7);
+            this.setVelocityY(this.moveSpeed * 0.7);
         } else if(this.scene.right.isDown && this.scene.up.isDown) {
-            this.setVelocityX(354);
-            this.setVelocityY(-354);
+            this.setVelocityX(this.moveSpeed * 0.7);
+            this.setVelocityY(this.moveSpeed * -0.7);
         } else if(this.scene.right.isDown && this.scene.down.isDown) {
-            this.setVelocityX(354);
-            this.setVelocityY(354);
+            this.setVelocityX(this.moveSpeed * 0.7);
+            this.setVelocityY(this.moveSpeed * 0.7);
         } else if(this.scene.left.isDown) {
-            this.setVelocityX(-500);
+            this.setVelocityX(this.moveSpeed * -1);
             this.setVelocityY(0);
         } else if(this.scene.right.isDown) {
-            this.setVelocityX(500);
+            this.setVelocityX(this.moveSpeed);
             this.setVelocityY(0);
         } else if(this.scene.up.isDown) {
             this.setVelocityX(0);
-            this.setVelocityY(-500);
+            this.setVelocityY(this.moveSpeed * -1);
         } else if(this.scene.down.isDown) {
             this.setVelocityX(0);
-            this.setVelocityY(500);
+            this.setVelocityY(this.moveSpeed);
         } else {
             this.setVelocityX(0);
             this.setVelocityY(0);
+            this.movespeed /= 2.5;
+            this.sprinting = false;
         }
     }
 
@@ -60,6 +66,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         } else {
             console.log('attacked location (' + inX + ',' + inY + ')');
             
+            this.moveSpeed /= 4;
             // find base vector values AKA set origin to 0,0
             let distX = inX - this.x;
             let distY = inY - this.y;
@@ -75,12 +82,27 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             let atkCrdX = this.x + distX;
             let atkCrdY = this.y + distY;
 
-            this.inAnim(300);
+            let curslash = new Slash(this.scene,atkCrdX,atkCrdY);
+            // add collision for hits here
+
+
+            // add to group of slashes
+            // if full remove oldest
+            if(this.scene.slashGroup.isFull())
+            {
+                this.scene.slashGroup.remove(this.scene.slashGroup.getFirstAlive(),true,true);
+            }
+            this.scene.slashGroup.add(curslash);
+
+            // lock player during attack anim
+            this.inAnim(300,this.movespeed/4);
             this.attackOnCooldown = true;
+            // free up player at end of attack anim
             this.scene.time.addEvent({
                 delay: 300,
                 callback: () => {
                     this.attackOnCooldown = false;
+                    curslash.setVisible(false);
                 }
             });
         }
@@ -91,7 +113,15 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             console.log('sheath on cooldown');
         } else {
             console.log('sheathed');
-            this.inAnim(2000);
+            this.inAnim(2000,0);
+            this.moveSpeed = 0;
+
+            let counter = 1000;
+            this.scene.slashGroup.children.entries.forEach(element => {
+                element.destroyIn(counter);
+                counter += 100;
+            });
+
             this.sheathOnCooldown = true;
             this.scene.time.addEvent({
                 delay: 10000,
@@ -108,6 +138,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             delay: duration,
             callback: () => {
                 this.inAttack = false;
+                this.moveSpeed = this.baseMoveSpeed;
             }
         });
     }

@@ -20,8 +20,8 @@ class Play extends Phaser.Scene {
         walltile.renderDebug(debugGraphics, {
             tileColor : null,
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-            faceColor:new Phaser.Display.Color(40,39, 37, 255)
-        })
+            faceColor:new Phaser.Display.Color(40, 39, 37, 255)
+        });
 
         this.left = this.input.keyboard.addKey('A');
         this.right = this.input.keyboard.addKey('D');
@@ -31,7 +31,11 @@ class Play extends Phaser.Scene {
         this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
 
         //map collision
-        this.physics.add.collider(this.player, walltile)
+        this.physics.add.collider(this.player, walltile);
+
+        this.slashGroup = this.add.group({
+            maxSize: 10
+        });
 
         //background
         //this.backGround = this.add.tileSprite(0,0,3072,768,'Background').setOrigin(0,0);
@@ -49,8 +53,10 @@ class Play extends Phaser.Scene {
         }
         this.attackText = this.add.text(10,10,'Attack:' + this.player.attackOnCooldown, this.cooldownConfig);
         this.sheathText = this.add.text(10,30,'Sheath:' + this.player.sheathOnCooldown, this.cooldownConfig);
+        this.attackText.setScrollFactor(0);
+        this.sheathText.setScrollFactor(0);
 
-        this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.player,true);
         
     }
 
