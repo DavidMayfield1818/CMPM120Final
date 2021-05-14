@@ -3,6 +3,10 @@ class Slash extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, 'slash');
         scene.add.existing(this);
         scene.physics.add.existing(this);
+        let dx = this.x - this.scene.player.x;
+        let dy = this.scene.player.y - this.y;
+        let rad = Math.atan2(dx,dy);
+        this.setRotation(rad);
     }
 
     destroyIn(duration){

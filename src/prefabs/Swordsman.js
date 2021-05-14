@@ -8,7 +8,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.inAttack = false;
         this.attackOnCooldown = false;
         this.sheathOnCooldown = false;
-        this.attackRange = 25;
+        this.attackRange = 35;
         this.baseMoveSpeed = 200;
         this.moveSpeed = this.baseMoveSpeed;
 
@@ -31,27 +31,35 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         if(this.scene.left.isDown && this.scene.up.isDown) {
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
+            this.setAngle(315);
         } else if(this.scene.left.isDown && this.scene.down.isDown) {
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
+            this.setAngle(225);
         } else if(this.scene.right.isDown && this.scene.up.isDown) {
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
+            this.setAngle(45);
         } else if(this.scene.right.isDown && this.scene.down.isDown) {
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
+            this.setAngle(135);
         } else if(this.scene.left.isDown) {
             this.setVelocityX(this.moveSpeed * -1);
             this.setVelocityY(0);
+            this.setAngle(270);
         } else if(this.scene.right.isDown) {
             this.setVelocityX(this.moveSpeed);
             this.setVelocityY(0);
+            this.setAngle(90);
         } else if(this.scene.up.isDown) {
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed * -1);
+            this.setAngle(0);
         } else if(this.scene.down.isDown) {
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed);
+            this.setAngle(180);
         } else {
             this.setVelocityX(0);
             this.setVelocityY(0);
@@ -84,7 +92,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
             let curslash = new Slash(this.scene,atkCrdX,atkCrdY);
             // add collision for hits here
-
+            
 
             // add to group of slashes
             // if full remove oldest
