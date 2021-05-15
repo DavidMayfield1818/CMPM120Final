@@ -11,6 +11,8 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.attackRange = 35;
         this.baseMoveSpeed = 200;
         this.moveSpeed = this.baseMoveSpeed;
+        this.ismove = false;
+        this.sfxattack = scene.sound.add('sword_out')
 
         // mouse input
         this.scene.input.mouse.disableContextMenu();
@@ -29,38 +31,47 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
     update() {
         if(this.scene.left.isDown && this.scene.up.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
             this.setAngle(315);
         } else if(this.scene.left.isDown && this.scene.down.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
             this.setAngle(225);
         } else if(this.scene.right.isDown && this.scene.up.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
             this.setAngle(45);
         } else if(this.scene.right.isDown && this.scene.down.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
             this.setAngle(135);
         } else if(this.scene.left.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed * -1);
             this.setVelocityY(0);
             this.setAngle(270);
         } else if(this.scene.right.isDown) {
+            this.ismove = true;
             this.setVelocityX(this.moveSpeed);
             this.setVelocityY(0);
             this.setAngle(90);
         } else if(this.scene.up.isDown) {
+            this.ismove = true;
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed * -1);
             this.setAngle(0);
         } else if(this.scene.down.isDown) {
+            this.ismove = true;
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed);
             this.setAngle(180);
         } else {
+            this.ismove = false;
             this.setVelocityX(0);
             this.setVelocityY(0);
             this.movespeed /= 2.5;
@@ -71,9 +82,10 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     attack(inX, inY) {
         if(this.attackOnCooldown){
             console.log('attack on cooldown');
+            
         } else {
             console.log('attacked location (' + inX + ',' + inY + ')');
-            
+            this.sfxattack.play();
             this.moveSpeed /= 4;
             // find base vector values AKA set origin to 0,0
             let distX = inX - this.x;

@@ -7,6 +7,7 @@ class Slash extends Phaser.Physics.Arcade.Sprite {
         let dy = this.scene.player.y - this.y;
         let rad = Math.atan2(dx,dy);
         this.setRotation(rad);
+        this.sfxslash = scene.sound.add('slash')
     }
 
     destroyIn(duration){
@@ -20,6 +21,7 @@ class Slash extends Phaser.Physics.Arcade.Sprite {
             delay: duration,
             callback: () => {
                 this.destroy();
+                this.sfxslash.play()
             }
         });
     }

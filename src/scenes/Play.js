@@ -57,10 +57,21 @@ class Play extends Phaser.Scene {
         this.sheathText.setScrollFactor(0);
 
         this.cameras.main.startFollow(this.player,true);
-        
+
+        this.walksound = this.sound.add('walk_effect', {volume: 0})
+        this.walksound.play();
+        this.walksound.loop = true;
+
     }
 
     update() {
+
+        if(this.player.ismove == true){
+            this.walksound.setVolume(3)
+        }else{
+            this.walksound.setVolume(0) 
+        }
+
         this.player.update();
         this.attackText.text = 'Attack:' + this.player.attackOnCooldown;
         this.sheathText.text = 'Sheath:' + this.player.sheathOnCooldown;
