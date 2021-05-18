@@ -10,6 +10,7 @@ class Load extends Phaser.Scene {
 
         this.load.image('swordsman', 'swordsman.png');
         this.load.image('slash', 'slash.png');
+        this.load.image('marker', 'star.png');
         
         this.load.image('mappng','maptile.png');
         this.load.tilemapTiledJSON('mapjs','mapjs.json')

@@ -112,7 +112,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             {
                 this.scene.slashGroup.remove(this.scene.slashGroup.getFirstAlive(),true,true);
             }
-            this.scene.slashGroup.add(curslash);
+            this.scene.slashGroup.add(curslash).setOrigin(0.5);
 
             // lock player during attack anim
             this.inAnim(300,this.movespeed/4);
@@ -123,6 +123,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
                 callback: () => {
                     this.attackOnCooldown = false;
                     curslash.setVisible(false);
+                    curslash.marker.setVisible(true);
                 }
             });
         }
