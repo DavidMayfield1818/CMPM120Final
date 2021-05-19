@@ -13,10 +13,12 @@ class Load extends Phaser.Scene {
         this.load.image('marker', 'star.png');
         
         this.load.image('mappng','maptile.png');
+        
         this.load.tilemapTiledJSON('mapjs','mapjs.json')
         this.load.audio('walk_effect', 'walk_effect.wav');
         this.load.audio('slash', 'sword_ex.wav');
         this.load.audio('sword_out', 'sword_out.wav'); //from youtube https://www.youtube.com/watch?v=EgRvVq8mStE
+        this.load.image('enemypng', 'enemies.png');
     }
 
     create() {

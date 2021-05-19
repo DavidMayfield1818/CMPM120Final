@@ -12,12 +12,12 @@ class Play extends Phaser.Scene {
         const tileset = map.addTilesetImage('maptile','mappng')
         map.createLayer('ground',tileset)
 
-        const walltile = map.createLayer('wall',tileset)
-        walltile.setCollisionByProperty({collides: true});
+        this.walltile = map.createLayer('wall',tileset)
+        this.walltile.setCollisionByProperty({collides: true});
 
         //collcsion debug
         const debugGraphics = this.add.graphics().setAlpha(0.7)
-        walltile.renderDebug(debugGraphics, {
+        this.walltile.renderDebug(debugGraphics, {
             tileColor : null,
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
             faceColor:new Phaser.Display.Color(40, 39, 37, 255)
@@ -30,12 +30,26 @@ class Play extends Phaser.Scene {
 
         this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
 
-        //map collision
-        this.physics.add.collider(this.player, walltile);
+        this.enemygroup = this.physics.add.group({
+            classType: Enemies,
+            
+        })
 
+        //load position from map
+        const enemygroupLayer = map.getObjectLayer('enemyla')
+        enemygroupLayer.objects.forEach(enemyobj =>{
+            this.enemygroup.get(enemyobj.x, enemyobj.y).setVelocity(-50,0).setBounce(1, 1).setCollideWorldBounds(true);
+        })
+      
+
+        //map collision
+        this.physics.add.collider(this.player, this.walltile);
+        this.physics.add.collider(this.enemygroup, this.walltile);
+        
         this.slashGroup = this.add.group({
             maxSize: 10
         });
+
 
         //background
         //this.backGround = this.add.tileSprite(0,0,3072,768,'Background').setOrigin(0,0);
@@ -71,9 +85,11 @@ class Play extends Phaser.Scene {
         }else{
             this.walksound.setVolume(0) 
         }
-
         this.player.update();
+
         this.attackText.text = 'Attack:' + this.player.attackOnCooldown;
         this.sheathText.text = 'Sheath:' + this.player.sheathOnCooldown;
+
     }
+
 }
