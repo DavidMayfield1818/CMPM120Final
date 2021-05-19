@@ -110,6 +110,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             // if full remove oldest
             if(this.scene.slashGroup.isFull())
             {
+                this.scene.slashGroup.getFirstAlive().marker.destroy();
                 this.scene.slashGroup.remove(this.scene.slashGroup.getFirstAlive(),true,true);
             }
             this.scene.slashGroup.add(curslash).setOrigin(0.5);
