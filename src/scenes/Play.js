@@ -8,11 +8,11 @@ class Play extends Phaser.Scene {
     create() {
         
         // map
-        const map = this.make.tilemap({key:'mapjs'})
-        const tileset = map.addTilesetImage('maptile','mappng')
-        map.createLayer('ground',tileset)
+        const map = this.make.tilemap({key:'mapjs'});
+        const tileset = map.addTilesetImage('maptile','mappng');
+        map.createLayer('ground',tileset);
 
-        this.walltile = map.createLayer('wall',tileset)
+        this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
 
         // collision debug
@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.walltile.renderDebug(debugGraphics, {
             tileColor : null,
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-            faceColor:new Phaser.Display.Color(40, 39, 37, 255)
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255)
         });
 
         // movement controls set up inputs
@@ -30,31 +30,33 @@ class Play extends Phaser.Scene {
         this.down = this.input.keyboard.addKey('S');
 
         // create the player object
-        this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
+        this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
 
         // Group that holds the enemies
-        // this.enemygroup = this.physics.add.group({
-        //     classType: Enemies,
-        // });
+        this.enemyGroup = this.physics.add.group({
+            runChildUpdate: true
+        });
 
         // load position of enemies from map
-        // const enemygroupLayer = map.getObjectLayer('enemyla')
-        // enemygroupLayer.objects.forEach(enemyobj =>{
-        //     this.enemygroup.get(enemyobj.x, enemyobj.y).setVelocity(-50,0).setBounce(1, 1).setCollideWorldBounds(true);
-        // });
-      
+        const enemygroupLayer = map.getObjectLayer('enemyla')
+        enemygroupLayer.objects.forEach(enemyobj =>{
+            let enemy = new EnemySword(this,enemyobj.x, enemyobj.y);
+            this.enemyGroup.add(enemy);
+        });
 
         //map collision
-        this.physics.add.collider(this.player, this.walltile);
-        //this.physics.add.collider(this.enemygroup, this.walltile);
+        //this.physics.add.collider(this.player, this.walltile);
+        this.physics.add.collider(this.enemyGroup, this.walltile);
         
+        // group to retain slash data
         this.slashGroup = this.add.group({
             maxSize: 10
         });
 
 
-        //background
+        // background
         //this.backGround = this.add.tileSprite(0,0,3072,768,'Background').setOrigin(0,0);
+
         // cooldowns
         this.cooldownConfig = {
             fontFamily: 'Courier',

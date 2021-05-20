@@ -93,6 +93,9 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(0);
             this.movespeed /= 2.5;
         }
+        // collide with wall
+        this.scene.physics.collide(this,this.scene.walltile);
+
     }
 
     attack(inX, inY) {
@@ -120,7 +123,11 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
             let curslash = new Slash(this.scene,atkCrdX,atkCrdY);
             // add collision for hits here
-            
+            this.scene.enemyGroup.children.entries.forEach(enemy => {
+                if(this.scene.physics.collide(curslash,enemy)){
+                    enemy.hit();
+                }
+            });
 
             // add to group of slashes
             // if full remove oldest
