@@ -13,7 +13,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         this.idle = true;
         this.engaged = false;
         this.attacking = false;
-        this.visable = false;
+        this.setVisible(false);
         
     }
 
@@ -27,7 +27,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
             if(length < this.detectionRadius) {
                 this.idle = false;
                 this.engaged = true;
-                this.visable = false;
+                this.setVisible(true);
             }
         }
 
