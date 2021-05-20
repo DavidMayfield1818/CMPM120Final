@@ -7,7 +7,7 @@ class Play extends Phaser.Scene {
 
     create() {
         
-        //map
+        // map
         const map = this.make.tilemap({key:'mapjs'})
         const tileset = map.addTilesetImage('maptile','mappng')
         map.createLayer('ground',tileset)
@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
         this.walltile = map.createLayer('wall',tileset)
         this.walltile.setCollisionByProperty({collides: true});
 
-        //collcsion debug
+        // collision debug
         const debugGraphics = this.add.graphics().setAlpha(0.7)
         this.walltile.renderDebug(debugGraphics, {
             tileColor : null,
@@ -23,28 +23,30 @@ class Play extends Phaser.Scene {
             faceColor:new Phaser.Display.Color(40, 39, 37, 255)
         });
 
+        // movement controls set up inputs
         this.left = this.input.keyboard.addKey('A');
         this.right = this.input.keyboard.addKey('D');
         this.up = this.input.keyboard.addKey('W');
         this.down = this.input.keyboard.addKey('S');
 
+        // create the player object
         this.player = new Swordsman (this,game.config.width/2,game.config.height/2).setOrigin(0.5);
 
-        this.enemygroup = this.physics.add.group({
-            classType: Enemies,
-            
-        })
+        // Group that holds the enemies
+        // this.enemygroup = this.physics.add.group({
+        //     classType: Enemies,
+        // });
 
-        //load position from map
-        const enemygroupLayer = map.getObjectLayer('enemyla')
-        enemygroupLayer.objects.forEach(enemyobj =>{
-            this.enemygroup.get(enemyobj.x, enemyobj.y).setVelocity(-50,0).setBounce(1, 1).setCollideWorldBounds(true);
-        })
+        // load position of enemies from map
+        // const enemygroupLayer = map.getObjectLayer('enemyla')
+        // enemygroupLayer.objects.forEach(enemyobj =>{
+        //     this.enemygroup.get(enemyobj.x, enemyobj.y).setVelocity(-50,0).setBounce(1, 1).setCollideWorldBounds(true);
+        // });
       
 
         //map collision
         this.physics.add.collider(this.player, this.walltile);
-        this.physics.add.collider(this.enemygroup, this.walltile);
+        //this.physics.add.collider(this.enemygroup, this.walltile);
         
         this.slashGroup = this.add.group({
             maxSize: 10
@@ -71,20 +73,9 @@ class Play extends Phaser.Scene {
         this.sheathText.setScrollFactor(0);
 
         this.cameras.main.startFollow(this.player,true);
-
-        this.walksound = this.sound.add('walk_effect', {volume: 0})
-        this.walksound.play();
-        this.walksound.loop = true;
-
     }
 
     update() {
-
-        if(this.player.ismove == true){
-            this.walksound.setVolume(3)
-        }else{
-            this.walksound.setVolume(0) 
-        }
         this.player.update();
 
         this.attackText.text = 'Attack:' + this.player.attackOnCooldown;

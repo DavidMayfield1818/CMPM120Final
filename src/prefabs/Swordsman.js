@@ -5,14 +5,23 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable(true);
         this.setCircle(16);
+
+        // attack anim booleans
         this.inAttack = false;
         this.attackOnCooldown = false;
         this.sheathOnCooldown = false;
+
+        // distance values
         this.attackRange = 35;
         this.baseMoveSpeed = 200;
         this.moveSpeed = this.baseMoveSpeed;
-        this.ismove = false;
+        
+        // movement sfx variables
+        this.isMoving = false;
         this.sfxattack = scene.sound.add('sword_out')
+        this.walksound = scene.sound.add('walk_effect', {volume: 0})
+        this.walksound.play();
+        this.walksound.loop = true;
 
         // mouse input
         this.scene.input.mouse.disableContextMenu();
@@ -30,52 +39,59 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        // determine walking
+        if(this.isMoving && !this.inAttack){
+            this.walksound.setVolume(3);
+        }else{
+            this.walksound.setVolume(0);
+        }
+
+        // movement controls will change add directional sprite animations
         if(this.scene.left.isDown && this.scene.up.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
             this.setAngle(315);
         } else if(this.scene.left.isDown && this.scene.down.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed * -0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
             this.setAngle(225);
         } else if(this.scene.right.isDown && this.scene.up.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * -0.7);
             this.setAngle(45);
         } else if(this.scene.right.isDown && this.scene.down.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed * 0.7);
             this.setVelocityY(this.moveSpeed * 0.7);
             this.setAngle(135);
         } else if(this.scene.left.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed * -1);
             this.setVelocityY(0);
             this.setAngle(270);
         } else if(this.scene.right.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(this.moveSpeed);
             this.setVelocityY(0);
             this.setAngle(90);
         } else if(this.scene.up.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed * -1);
             this.setAngle(0);
         } else if(this.scene.down.isDown) {
-            this.ismove = true;
+            this.isMoving = true;
             this.setVelocityX(0);
             this.setVelocityY(this.moveSpeed);
             this.setAngle(180);
         } else {
-            this.ismove = false;
+            this.isMoving = false;
             this.setVelocityX(0);
             this.setVelocityY(0);
             this.movespeed /= 2.5;
-            this.sprinting = false;
         }
     }
 
