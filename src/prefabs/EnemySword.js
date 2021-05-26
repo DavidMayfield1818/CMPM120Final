@@ -44,6 +44,8 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
             distY *= this.moveSpeed;
             // add it to the orginal coords as previous to remove 0,0 origin
             this.body.setVelocity(distX,distY);
+            
+            this.angle = Phaser.Math.Between(this.x,this.y,this.scene.player.x,this.scene.player.y)+180;
         }
 
         // begin attack
