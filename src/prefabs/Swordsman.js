@@ -126,7 +126,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             // add collision for hits here
             this.scene.enemyGroup.children.entries.forEach(enemy => {
                 if(this.scene.physics.collide(curslash,enemy)){
-                    enemy.hit();
+                    enemy.hit(false);
                 }
             });
 

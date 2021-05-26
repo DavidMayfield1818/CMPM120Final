@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
         // load position of enemies from map
         const enemygroupLayer = map.getObjectLayer('enemyla')
         enemygroupLayer.objects.forEach(enemyobj =>{
-            let enemy = new EnemySword(this,enemyobj.x, enemyobj.y);
+            let enemy = new EnemyShield(this,enemyobj.x, enemyobj.y);
             this.enemyGroup.add(enemy);
         });
 
