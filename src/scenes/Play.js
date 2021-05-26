@@ -79,10 +79,17 @@ class Play extends Phaser.Scene {
 
     update() {
         this.player.update();
+        if(this.player.hp <= 0) {
+            this.gameOver();
+        }
 
         this.attackText.text = 'Attack:' + this.player.attackOnCooldown;
         this.sheathText.text = 'Sheath:' + this.player.sheathOnCooldown;
 
     }
 
+
+    gameOver() {
+        this.scene.pause();
+    }
 }

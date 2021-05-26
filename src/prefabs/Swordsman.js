@@ -5,6 +5,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable(true);
         this.setCircle(16);
+        this.hp = 5;
 
         // attack anim booleans
         this.inAttack = false;
@@ -13,7 +14,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
         // distance values
         this.attackRange = 35;
-        this.baseMoveSpeed = 200;
+        this.baseMoveSpeed = 150;
         this.moveSpeed = this.baseMoveSpeed;
         
         // movement sfx variables
@@ -161,7 +162,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             this.inAnim(2000,0);
             this.moveSpeed = 0;
 
-            let counter = 1000;
+            let counter = 0;
             this.scene.slashGroup.children.entries.forEach(element => {
                 element.destroyIn(counter);
                 counter += 100;
@@ -186,5 +187,9 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
                 this.moveSpeed = this.baseMoveSpeed;
             }
         });
+    }
+
+    damage(amount) {
+        this.hp -= amount;
     }
 }
