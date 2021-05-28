@@ -125,8 +125,13 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
             let curslash = new Slash(this.scene,atkCrdX,atkCrdY);
             // add collision for hits here
             this.scene.enemyGroup.children.entries.forEach(enemy => {
-                if(this.scene.physics.collide(curslash,enemy)){
+                if(this.scene.physics.overlap(curslash,enemy)){
                     enemy.hit(false);
+                }
+            });
+            this.scene.arrowGroup.children.entries.forEach(arrow => {
+                if(this.scene.physics.overlap(curslash,arrow)){
+                    arrow.hit(false);
                 }
             });
 

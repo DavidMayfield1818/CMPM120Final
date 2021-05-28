@@ -40,13 +40,21 @@ class Play extends Phaser.Scene {
         // load position of enemies from map
         const enemygroupLayer = map.getObjectLayer('enemyla')
         enemygroupLayer.objects.forEach(enemyobj =>{
-            let enemy = new EnemyShield(this,enemyobj.x, enemyobj.y);
+            let enemy = new EnemyBow(this,enemyobj.x, enemyobj.y);
             this.enemyGroup.add(enemy);
         });
 
         //map collision
         //this.physics.add.collider(this.player, this.walltile);
         this.physics.add.collider(this.enemyGroup, this.walltile);
+
+        // group the arrows
+        this.arrowGroup = this.physics.add.group({
+            runChildUpdate: true
+        });
+
+        //this.physics.add.collider(this.arrowGroup, this.walltile);
+
         
         // group to retain slash data
         this.slashGroup = this.add.group({
@@ -71,8 +79,10 @@ class Play extends Phaser.Scene {
         }
         this.attackText = this.add.text(10,10,'Attack:' + this.player.attackOnCooldown, this.cooldownConfig);
         this.sheathText = this.add.text(10,30,'Sheath:' + this.player.sheathOnCooldown, this.cooldownConfig);
+        this.healthText = this.add.text(10,50,'Health:' + this.player.hp, this.cooldownConfig);
         this.attackText.setScrollFactor(0);
         this.sheathText.setScrollFactor(0);
+        this.healthText.setScrollFactor(0);
 
         this.cameras.main.startFollow(this.player,true);
     }
@@ -83,8 +93,9 @@ class Play extends Phaser.Scene {
             this.gameOver();
         }
 
-        this.attackText.text = 'Attack:' + this.player.attackOnCooldown;
-        this.sheathText.text = 'Sheath:' + this.player.sheathOnCooldown;
+        this.attackText.text = 'Attack: ' + this.player.attackOnCooldown;
+        this.sheathText.text = 'Sheath: ' + this.player.sheathOnCooldown;
+        this.healthText.text = 'Health: ' + this.player.hp;
 
     }
 

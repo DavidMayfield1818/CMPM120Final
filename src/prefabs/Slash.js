@@ -24,6 +24,12 @@ class Slash extends Phaser.Physics.Arcade.Sprite {
                         enemy.hit(true);
                     }
                 });
+                this.scene.arrowGroup.children.entries.forEach(arrow => {
+                    if(this.scene.physics.collide(this,arrow)){
+                        arrow.hit(true);
+                    }
+                });
+
                 this.setAngle(Phaser.Math.Between(0,360));
             }
         });

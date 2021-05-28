@@ -45,7 +45,10 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
             // add it to the orginal coords as previous to remove 0,0 origin
             this.body.setVelocity(distX,distY);
             
-            this.angle = Phaser.Math.Between(this.x,this.y,this.scene.player.x,this.scene.player.y)+180;
+            let dx = this.x - this.scene.player.x;
+            let dy = this.scene.player.y - this.y;
+            let rad = Math.atan2(dx,dy);
+            this.setRotation(rad + Math.PI);
         }
 
         // begin attack
