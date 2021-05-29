@@ -1,0 +1,23 @@
+[
+	[
+		{
+			"speaker" : "",
+			"dialog" : "Backgroud description1.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "",
+			"dialog" : "Backgroud description2"
+		},
+		{
+			"speaker" : "swordman",
+			"dialog" : "Character description1",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "swordman",
+			"dialog" : "Character description2",
+		}
+	]
+	
+]

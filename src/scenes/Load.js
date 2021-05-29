@@ -30,10 +30,18 @@ class Load extends Phaser.Scene {
         this.load.audio('walk_effect', 'walk_effect.wav');
         this.load.audio('slash', 'sword_ex.wav');
         this.load.audio('sword_out', 'sword_out.wav'); //from youtube https://www.youtube.com/watch?v=EgRvVq8mStE
+
+
+        //dialog
+        this.load.json('dialog', 'json/dialog.json');
+        this.load.image('dialogbox', 'dialog/dialogbox.png');
+        this.load.image('swordman', 'dialog/swordman1.png');
+        this.load.bitmapFont('gem_font', 'font/dubai01.png', 'font/dubai.xml');
         
     }
 
     create() {
-        this.scene.start('playScene');
+        //this.scene.start('playScene');
+        this.scene.start('talkingScene');
     }
 }

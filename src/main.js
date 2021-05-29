@@ -7,8 +7,8 @@
 // game configs
 let config = {
     type: Phaser.AUTO,
-    width: 768,     // subject to change
-    height: 768,    // subject to change
+    width: 800,     // subject to change 768
+    height: 600,    // subject to change 768
     fps: {
         min: 5,
         target: 60,
@@ -25,7 +25,7 @@ let config = {
             gravity: { y: 0}
         }
     },
-    scene: [Menu, Load, Play]
+    scene: [Menu, Load, Talking, Play]
 }
 
 
@@ -35,4 +35,4 @@ let keyR, keyESC;
 
 
 // reserve keyboard bindings
-
+let cursors = null;
