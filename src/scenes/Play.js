@@ -88,11 +88,11 @@ class Play extends Phaser.Scene {
         this.attackText = this.add.text(10,10,'Attack:' + this.player.attackOnCooldown, this.cooldownConfig);
         this.sheathText = this.add.text(10,30,'Sheath:' + this.player.sheathOnCooldown, this.cooldownConfig);
         this.healthText = this.add.text(10,50,'Health:' + this.player.hp, this.cooldownConfig);
-        this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
+        //this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
         this.attackText.setScrollFactor(0);
         this.sheathText.setScrollFactor(0);
         this.healthText.setScrollFactor(0);
-        this.blk.setScrollFactor(0);
+        //this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
     }
 
