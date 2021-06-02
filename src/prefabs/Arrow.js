@@ -8,7 +8,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
         let rad = Math.atan2(dx,dy);
         this.setCircle(16);
         this.setRotation(rad+Math.PI);
-        this.speed = 300;
+        this.speed = 250;
         this.xSpeed = dirX*this.speed;
         this.ySpeed = dirY*this.speed;
         this.body.setVelocity(this.xSpeed,this.ySpeed);
