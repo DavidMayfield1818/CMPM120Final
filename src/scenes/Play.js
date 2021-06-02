@@ -10,18 +10,20 @@ class Play extends Phaser.Scene {
         // map
         const map = this.make.tilemap({key:'mapjs'});
         const tileset = map.addTilesetImage('maptile','mappng');
+        
         map.createLayer('ground',tileset);
 
         this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
-
+        this.level = map.createLayer('level',tileset);
         // collision debug
+        /** 
         const debugGraphics = this.add.graphics().setAlpha(0.7)
         this.walltile.renderDebug(debugGraphics, {
             tileColor : null,
             collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
             faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        });
+        });*/
 
         // movement controls set up inputs
         this.left = this.input.keyboard.addKey('A');
@@ -30,7 +32,13 @@ class Play extends Phaser.Scene {
         this.down = this.input.keyboard.addKey('S');
 
         // create the player object
-        this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
+
+        const p1Spawn = map.findObject('Spawns', obj => obj.name === 'p1Spawn');
+        
+        //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
+        this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
+        
+
 
         // Group that holds the enemies
         this.enemyGroup = this.physics.add.group({
@@ -80,10 +88,11 @@ class Play extends Phaser.Scene {
         this.attackText = this.add.text(10,10,'Attack:' + this.player.attackOnCooldown, this.cooldownConfig);
         this.sheathText = this.add.text(10,30,'Sheath:' + this.player.sheathOnCooldown, this.cooldownConfig);
         this.healthText = this.add.text(10,50,'Health:' + this.player.hp, this.cooldownConfig);
+        this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
         this.attackText.setScrollFactor(0);
         this.sheathText.setScrollFactor(0);
         this.healthText.setScrollFactor(0);
-
+        this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
     }
 

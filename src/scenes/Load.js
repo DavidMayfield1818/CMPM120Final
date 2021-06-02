@@ -23,8 +23,9 @@ class Load extends Phaser.Scene {
         //this.load.image('arrow','arrow.png');
         
         // tile map stuff
-        this.load.image('mappng','maptile.png');
-        this.load.tilemapTiledJSON('mapjs','mapjs.json')
+        this.load.image('mappng','maptile32.png');
+        this.load.tilemapTiledJSON('mapjs','mapjs32.json')
+        this.load.image('blackcir','blackcir.png')
 
         // audio stuff
         this.load.audio('walk_effect', 'walk_effect.wav');
