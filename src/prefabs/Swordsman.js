@@ -5,7 +5,9 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.setImmovable(true);
         this.setCircle(16);
-        this.hp = 5;
+        this.maxhp = 5;
+        this.hp = this.maxhp;
+        this.cd = 100;
 
         // attack anim booleans
         this.inAttack = false;
@@ -100,11 +102,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     attack(inX, inY) {
-        if(this.attackOnCooldown){
-            console.log('attack on cooldown');
-            
-        } else {
-            console.log('attacked location (' + inX + ',' + inY + ')');
+        if(!this.attackOnCooldown){
             this.sfxattack.play();
             this.moveSpeed /= 4;
             // find base vector values AKA set origin to 0,0
@@ -160,10 +158,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     sheath() {
-        if(this.sheathOnCooldown){
-            console.log('sheath on cooldown');
-        } else {
-            console.log('sheathed');
+        if(!this.sheathOnCooldown){
             this.inAnim(2000,0);
             this.moveSpeed = 0;
 
@@ -178,6 +173,14 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
                 delay: 10000,
                 callback: () => {
                     this.sheathOnCooldown = false;
+                }
+            });
+            this.cd = 0;
+            this.scene.time.addEvent({
+                delay: 100,
+                repeat: 100,
+                callback: () => {
+                    this.cd += 1;
                 }
             });
         }
