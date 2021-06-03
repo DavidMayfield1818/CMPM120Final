@@ -1,6 +1,6 @@
 class Arrow extends Phaser.Physics.Arcade.Sprite {
     constructor (scene, x, y, dirX, dirY) {
-        super(scene, x, y, 'arrowSprite');
+        super(scene, x, y, 'slash');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         let dx = this.x - this.scene.player.x;
