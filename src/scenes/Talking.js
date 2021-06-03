@@ -12,7 +12,7 @@ class Talking extends Phaser.Scene {
         this.TEXT_SIZE = 32;		// text font size (in pixels)
         this.TEXT_MAX_WIDTH = 715;	// max width of text within box
 
-        this.NEXT_TEXT = 'PRESS ENTER';	// text to display for next prompt
+        this.NEXT_TEXT = 'PRESS SPACE';	// text to display for next prompt
         this.NEXT_X = 775;			// next text prompt x-position
         this.NEXT_Y = 574;			// next text prompt y-position
 
