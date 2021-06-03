@@ -20,7 +20,7 @@ class Load extends Phaser.Scene {
         this.load.image('enemyShield', 'enemy_shield.png');
         this.load.image('enemySpear', 'enemy_spear.png');
         this.load.image('enemyBow', 'enemy_bow.png');
-        this.load.image('arrowSprite', 'arrow.png');
+        //this.load.image('arrow','arrow.png');
         
         // tile map stuff
         this.load.image('mappng','maptile32.png');
@@ -42,7 +42,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('playScene');
-        //this.scene.start('talkingScene');
+        //this.scene.start('playScene');
+        this.scene.start('talkingScene');
     }
 }

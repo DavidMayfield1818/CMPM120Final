@@ -1,6 +1,6 @@
 class Arrow extends Phaser.Physics.Arcade.Sprite {
     constructor (scene, x, y, dirX, dirY) {
-        super(scene, x, y, 'arrowSprite');
+        super(scene, x, y, 'slash');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         let dx = this.x - this.scene.player.x;
@@ -8,7 +8,7 @@ class Arrow extends Phaser.Physics.Arcade.Sprite {
         let rad = Math.atan2(dx,dy);
         this.setCircle(16);
         this.setRotation(rad+Math.PI);
-        this.speed = 250;
+        this.speed = 300;
         this.xSpeed = dirX*this.speed;
         this.ySpeed = dirY*this.speed;
         this.body.setVelocity(this.xSpeed,this.ySpeed);

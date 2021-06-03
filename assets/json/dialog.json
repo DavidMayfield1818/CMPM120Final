@@ -2,29 +2,21 @@
 	[
 		{
 			"speaker" : "",
-			"dialog" : "In this world, demons invaded and struck down humans.",
+			"dialog" : "Backgroud description1.",
 			"newSpeaker" : "true"
 		},
 		{
 			"speaker" : "",
-			"dialog" : "Only a few humans rose up, and they were known as the swordsman."
+			"dialog" : "Backgroud description2"
 		},
 		{
-			"speaker" : "",
-			"dialog" : "These swordsman travelled through the destruction searching...",
+			"speaker" : "swordman",
+			"dialog" : "Character description1",
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "",
-			"dialog" : "Searching for the demon's stronghold."
-		},
-		{
-			"speaker" : "",
-			"dialog" : "At long last, the last swordsman as found the demon's tower."
-		},
-		{
-			"speaker" : "",
-			"dialog" : "With faith in his sword, and his skill, he plunged into the tower."
+			"speaker" : "swordman",
+			"dialog" : "Character description2"
 		}
 	]
 	
