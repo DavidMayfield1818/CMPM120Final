@@ -24,7 +24,6 @@ class Play extends Phaser.Scene {
         this.down = this.input.keyboard.addKey('S');
 
         // create the player object
-
         const p1Spawn = map.findObject('Spawns', obj => obj.name === 'p1Spawn');
         
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
@@ -108,5 +107,7 @@ class Play extends Phaser.Scene {
 
     gameOver() {
         this.scene.pause();
+        this.scene.start('gameOverScene');
+
     }
 }

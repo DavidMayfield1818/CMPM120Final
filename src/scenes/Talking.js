@@ -18,15 +18,6 @@ class Talking extends Phaser.Scene {
 
         this.LETTER_TIMER = 10;		// # ms each letter takes to "type" onscreen
 
-        // dialog variables
-        this.dialogConvo = 0;			// current "conversation"
-        this.dialogLine = 0;			// current line of conversation
-        this.dialogSpeaker = null;		// current speaker
-        this.dialogLastSpeaker = null;	// last speaker
-        this.dialogTyping = false;		// flag to lock player input while text is "typing"
-        this.dialogText = null;			// the actual dialog text
-        this.nextText = null;			// player prompt text to continue typing
-
         // character variables
         this.swordman = null;
         this.tweenDuration = 500;
@@ -36,6 +27,15 @@ class Talking extends Phaser.Scene {
     }
 
     create() {
+        // dialog variables
+        this.dialogConvo = 0;			// current "conversation"
+        this.dialogLine = 0;			// current line of conversation
+        this.dialogSpeaker = null;		// current speaker
+        this.dialogLastSpeaker = null;	// last speaker
+        this.dialogTyping = false;		// flag to lock player input while text is "typing"
+        this.dialogText = null;			// the actual dialog text
+        this.nextText = null;			// player prompt text to continue typing
+
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog');
         //console.log(this.dialog);
@@ -53,6 +53,10 @@ class Talking extends Phaser.Scene {
 
         // input
         cursors = this.input.keyboard.createCursorKeys();
+        this.input.mouse.disableContextMenu();
+        this.input.on('pointerdown', function(pointer){
+            this.advance = true;
+        }, this);
 
         // start dialog
         this.typeText();        
@@ -60,10 +64,11 @@ class Talking extends Phaser.Scene {
 
     update() {
         // check for spacebar press
-        if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
+        if((Phaser.Input.Keyboard.JustDown(cursors.space)||this.advance) && !this.dialogTyping) {
             // trigger dialog
             this.typeText();
         }
+        this.advance = false;
     }
 
     typeText() {
