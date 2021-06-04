@@ -14,6 +14,7 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
         this.cooldown = 0;
         this.offCooldown = true;
 
+
         // state variables
         this.idle = true;
         this.engaged = false;

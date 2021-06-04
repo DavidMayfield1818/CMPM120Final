@@ -17,13 +17,6 @@ class Play extends Phaser.Scene {
         this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
         this.level = map.createLayer('level',tileset);
-        this.enarea = map.createLayer('enarea', tileset);
-
-        this.enareaobj = map.filterObjects("enemyarea",  obj => obj.name === 'enar')
-        for(let i= 0; i<this.enareaobj.length; i++){
-            let enarea1 = this.enareaobj[i];
-            this.addEnareaRectangle(enarea1.x,enarea1.y, enarea1.width, enarea1.height);
-        }
 
 
         // movement controls set up inputs
@@ -38,6 +31,26 @@ class Play extends Phaser.Scene {
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
 
+        //enenmy area
+        this.enareaobj = map.filterObjects("enemyarea",  obj => obj.name === 'enar')
+        for(let i= 0; i<this.enareaobj.length; i++){
+            let enarea1 = this.enareaobj[i];
+            this.addEnareaRectangle(enarea1.x,enarea1.y, enarea1.width, enarea1.height);
+        }
+        //attackoff area
+        this.attackoffobj = map.filterObjects("attackoff",  obj => obj.name === 'attoff')
+        for(let i= 0; i<this.attackoffobj.length; i++){
+            let attackoff1 = this.attackoffobj[i];
+            this.addAttackoffRectangle(attackoff1.x,attackoff1.y, attackoff1.width, attackoff1.height);
+        }
+
+        //next level
+        this.levelobj = map.filterObjects("levelobj",  obj => obj.name === 'lvl')
+        for(let i= 0; i<this.levelobj.length; i++){
+            let level1 = this.levelobj[i];
+            this.addlevelRectangle(level1.x,level1.y, level1.width, level1.height);
+        }
+        
         // Group that holds the enemies
         this.enemyGroup = this.physics.add.group({
             runChildUpdate: true
@@ -103,10 +116,6 @@ class Play extends Phaser.Scene {
 
         //this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
-
-        //
-        this.physics.add.overlap(this.player, this.enarea, this.area(),null,this);
-        this.physics.add.overlap(this.player, this.ground, this.areaf(),null,this);
         
 
         this.attackText = this.add.text(10,50,'attack:' + this.attackallow, this.cooldownConfig);
@@ -123,7 +132,6 @@ class Play extends Phaser.Scene {
         }
 
         
-
         this.hpBar.scaleX = this.player.hp/this.player.maxhp;
         this.cdBar.scaleX = this.player.cd/100;
 
@@ -138,18 +146,33 @@ class Play extends Phaser.Scene {
     }
 
     addEnareaRectangle(x,y,width, heigth){
-        let enarea1 = this.add.rectangle(x,y,width,heigth, 0xff6699).setOrigin(0,0);
+        let enarea1 = this.add.rectangle(x,y,width,heigth, 0x0000FF).setOrigin(0,0);
         this.physics.add.existing(enarea1);
         enarea1.body.immovable = true; 
 
-        this.physics.add.overlap(this.player, enarea1, 
-            function(){this.attackallow = true},null, this);
+        this.physics.add.overlap(this.player, enarea1, function(){
+            this.attackallow = true;
+        }, null, this)
     }
 
-    area(){
-        this.attackallow = true;
+    addAttackoffRectangle(x,y,width, heigth){
+        let attackoff1 = this.add.rectangle(x,y,width,heigth, 0x00FFFF).setOrigin(0,0);
+        this.physics.add.existing(attackoff1);
+        attackoff1.body.immovable = true; 
+
+        this.physics.add.overlap(this.player, attackoff1, function(){
+            this.attackallow = false;
+        }, null, this)
     }
-    areaf(){
-        this.attackallow = false;
+
+    addlevelRectangle(x,y,width, heigth){
+        let level1 = this.add.rectangle(x,y,width,heigth, 0xff0000).setOrigin(0,0);
+        this.physics.add.existing(level1);
+        level1.body.immovable = true; 
+
+        this.physics.add.overlap(this.player, level1, function(){
+            this.scene.start('playScene');
+        }, null, this)
     }
+
 }
