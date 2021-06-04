@@ -12,12 +12,19 @@ class Play extends Phaser.Scene {
         const map = this.make.tilemap({key:'mapjs'});
         const tileset = map.addTilesetImage('maptile','mappng');
         
-        map.createLayer('ground',tileset);
+        this.ground = map.createLayer('ground',tileset);
 
         this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
         this.level = map.createLayer('level',tileset);
         this.enarea = map.createLayer('enarea', tileset);
+
+        this.enareaobj = map.filterObjects("enemyarea",  obj => obj.name === 'enar')
+        for(let i= 0; i<this.enareaobj.length; i++){
+            let enarea1 = this.enareaobj[i];
+            this.addEnareaRectangle(enarea1.x,enarea1.y, enarea1.width, enarea1.height);
+        }
+
 
         // movement controls set up inputs
         this.left = this.input.keyboard.addKey('A');
@@ -98,9 +105,15 @@ class Play extends Phaser.Scene {
         this.cameras.main.startFollow(this.player,true);
 
         //
-        this.physics.add.collider(this.player,this.enarea, function(){this.attackallow = true; }, null,this);
+        this.physics.add.overlap(this.player, this.enarea, this.area(),null,this);
+        this.physics.add.overlap(this.player, this.ground, this.areaf(),null,this);
+        
+
         this.attackText = this.add.text(10,50,'attack:' + this.attackallow, this.cooldownConfig);
         this.attackText.setScrollFactor(0);
+
+
+        
     }
 
     update() {
@@ -108,6 +121,8 @@ class Play extends Phaser.Scene {
         if(this.player.hp <= 0) {
             this.gameOver();
         }
+
+        
 
         this.hpBar.scaleX = this.player.hp/this.player.maxhp;
         this.cdBar.scaleX = this.player.cd/100;
@@ -120,5 +135,21 @@ class Play extends Phaser.Scene {
         this.scene.pause();
         this.scene.start('gameOverScene');
 
+    }
+
+    addEnareaRectangle(x,y,width, heigth){
+        let enarea1 = this.add.rectangle(x,y,width,heigth, 0xff6699).setOrigin(0,0);
+        this.physics.add.existing(enarea1);
+        enarea1.body.immovable = true; 
+
+        this.physics.add.overlap(this.player, enarea1, 
+            function(){this.attackallow = true},null, this);
+    }
+
+    area(){
+        this.attackallow = true;
+    }
+    areaf(){
+        this.attackallow = false;
     }
 }
