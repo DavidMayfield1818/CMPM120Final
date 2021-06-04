@@ -3,6 +3,7 @@ class Play extends Phaser.Scene {
     
     constructor () {
         super("playScene");
+        this.attackallow = false;
     }
 
     create() {
@@ -16,6 +17,7 @@ class Play extends Phaser.Scene {
         this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
         this.level = map.createLayer('level',tileset);
+        this.enarea = map.createLayer('enarea', tileset);
 
         // movement controls set up inputs
         this.left = this.input.keyboard.addKey('A');
@@ -70,8 +72,10 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
+        //this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
 
+
+    
         // health bar
         this.hpBar = this.add.graphics();
         this.hpBar.fillStyle(0xbf3634,1);
@@ -90,8 +94,13 @@ class Play extends Phaser.Scene {
         this.cdBar.setScrollFactor(0);
         this.cdBar.setAngle(180);
 
-        this.blk.setScrollFactor(0);
+        //this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
+
+        //
+        this.physics.add.collider(this.player,this.enarea, function(){this.attackallow = true; }, null,this);
+        this.attackText = this.add.text(10,50,'attack:' + this.attackallow, this.cooldownConfig);
+        this.attackText.setScrollFactor(0);
     }
 
     update() {
@@ -102,6 +111,8 @@ class Play extends Phaser.Scene {
 
         this.hpBar.scaleX = this.player.hp/this.player.maxhp;
         this.cdBar.scaleX = this.player.cd/100;
+
+        this.attackText.text = 'attack: ' + this.attackallow;
     }
 
 
