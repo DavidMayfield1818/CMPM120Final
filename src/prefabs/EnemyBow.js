@@ -13,7 +13,7 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
         this.cooldownMax = 120;  // frames
         this.cooldown = 0;
         this.offCooldown = true;
-
+        
 
         // state variables
         this.idle = true;
@@ -30,9 +30,8 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
         if(this.idle) {
             
         }
-
         // if in sight
-        if(this.engaged) {
+        if(this.engaged && this.scene.attackallow == true) {
             // travel towards player
             // find base vector values AKA set origin to 0,0
             let distX = this.scene.player.x - this.x;
@@ -72,14 +71,15 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
             let dy = this.scene.player.y - this.y;
             let rad = Math.atan2(dx,dy);
             this.setRotation(rad + Math.PI);
-            if(this.offCooldown){
+            if(this.offCooldown && this.scene.attackallow == true){
                 this.attack();
             }
         }
 
         if(this.safe){
             this.body.setVelocity(0,0);
-            if(this.offCooldown){
+            if(this.offCooldown && this.scene.attackallow == true){
+
                 this.attack();
             }
         }

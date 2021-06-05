@@ -56,7 +56,7 @@ class EnemyShield extends Phaser.Physics.Arcade.Sprite {
         }
 
         // begin attack
-        if(this.attacking && !this.inStrike) {
+        if(this.attacking && !this.inStrike && this.scene.attackallow == true) {
             this.struck = false;
             this.inStrike = true;
             this.attack();
