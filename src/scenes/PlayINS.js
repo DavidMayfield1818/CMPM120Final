@@ -31,8 +31,7 @@ class PlayINS extends Phaser.Scene {
         const ins2 = map.findObject('instruction',obj => obj.name === 'inst2')
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
-        this.inscontrol = this.add.image(ins.x,ins.y, 'ins');
-        this.inslevl2 = this.add.image(ins2.x,ins2.y, 'ins2');
+        
         
 
         // Group that holds the health
@@ -118,7 +117,11 @@ class PlayINS extends Phaser.Scene {
 
         // background
         //this.backGround = this.add.tileSprite(0,0,3072,768,'Background').setOrigin(0,0);
+        this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
+        this.blk.setScrollFactor(0);
 
+        this.inscontrol = this.add.image(ins.x,ins.y, 'insw');
+        this.inslevl2 = this.add.image(ins2.x,ins2.y, 'ins2w');
         // cooldowns
         this.cooldownConfig = {
             fontFamily: 'Courier',
@@ -131,7 +134,6 @@ class PlayINS extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        //this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
 
 
     
@@ -153,7 +155,6 @@ class PlayINS extends Phaser.Scene {
         this.cdBar.setScrollFactor(0);
         this.cdBar.setAngle(180);
 
-        //this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
         
 
@@ -213,6 +214,7 @@ class PlayINS extends Phaser.Scene {
         //level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
             this.player.walvol = false;
+            this.bgm.stop();
             this.scene.start('playScene');
         }, null, this)
     }

@@ -115,7 +115,8 @@ class Play2 extends Phaser.Scene {
 
         // background
         //this.backGround = this.add.tileSprite(0,0,3072,768,'Background').setOrigin(0,0);
-
+        this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
+        this.blk.setScrollFactor(0);
         // cooldowns
         this.cooldownConfig = {
             fontFamily: 'Courier',
@@ -128,7 +129,6 @@ class Play2 extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        //this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
 
 
     
@@ -150,7 +150,6 @@ class Play2 extends Phaser.Scene {
         this.cdBar.setScrollFactor(0);
         this.cdBar.setAngle(180);
 
-        //this.blk.setScrollFactor(0);
         this.cameras.main.startFollow(this.player,true);
         
 
@@ -209,7 +208,8 @@ class Play2 extends Phaser.Scene {
         level1.body.immovable = true; 
         level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
-            this.player.walvol = false;s
+            this.player.walvol = false;
+            this.bgm.stop();
             this.scene.start('playScene3');
         }, null, this)
     }
