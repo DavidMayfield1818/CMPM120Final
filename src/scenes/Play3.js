@@ -9,6 +9,8 @@ class Play3 extends Phaser.Scene {
     create() {
         this.bgm = this.sound.add("bgm2", {volume: 0.05, loop: true}); 
         this.bgm.play();
+        this.healsound = this.sound.add("heal",{volume:0.5,});
+        
         // map
         const map = this.make.tilemap({key:'mapjs3'});
         const tileset = map.addTilesetImage('maptile','mappng');
@@ -43,7 +45,7 @@ class Play3 extends Phaser.Scene {
         healthgroupLayer.objects.forEach(healthobj =>{
             let health = this.physics.add.image(healthobj.x, healthobj.y,'healthimage').setImmovable();
             this.physics.add.collider(this.player, health,function(){
-                this.player.walksound.setVolume(0);
+                this.healsound.play();
                 if(this.player.hp <5){
                     this.player.hp += 1;
                     health.destroy();

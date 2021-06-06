@@ -23,6 +23,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.isMoving = false;
         this.sfxattack = scene.sound.add('sword_out')
         this.walksound = scene.sound.add('walk_effect', {volume: 0})
+        this.hitsound = scene.sound.add("hit",{volume:0.5,});
         this.walksound.play();
         this.walksound.loop = true;
 
@@ -199,6 +200,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     damage(amount) {
+        this.hitsound.play();
         this.hp -= amount;
     }
 }

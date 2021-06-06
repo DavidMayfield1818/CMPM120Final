@@ -1,7 +1,7 @@
 class Talking extends Phaser.Scene {
     constructor() {
         super("talkingScene");
-
+        this.dianumber = 0;
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
         this.DBOX_Y = 400;			    // dialog box y-position
@@ -27,6 +27,8 @@ class Talking extends Phaser.Scene {
     }
 
     create() {
+        this.backimage = this.add.image(0,0,'diaimage1').setOrigin(0);
+    
         // dialog variables
         this.dialogConvo = 0;			// current "conversation"
         this.dialogLine = 0;			// current line of conversation
@@ -67,6 +69,9 @@ class Talking extends Phaser.Scene {
         if((Phaser.Input.Keyboard.JustDown(cursors.space)||this.advance) && !this.dialogTyping) {
             // trigger dialog
             this.typeText();
+            if(this.dianumber == 1){
+
+            }
         }
         this.advance = false;
     }
@@ -111,7 +116,7 @@ class Talking extends Phaser.Scene {
             }
             // make text box invisible
             this.dialogbox.visible = false;
-            this.scene.start('playScene');
+            this.scene.start('playSceneINS');
 
         } else {
             // if not, set current speaker
