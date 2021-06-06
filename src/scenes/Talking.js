@@ -28,7 +28,7 @@ class Talking extends Phaser.Scene {
 
     create() {
         this.backimage = this.add.image(0,0,'diaimage1').setOrigin(0);
-    
+        this.dialogsound = this.sound.add("nextdialog",{volume:0.5,});
         // dialog variables
         this.dialogConvo = 0;			// current "conversation"
         this.dialogLine = 0;			// current line of conversation
@@ -68,6 +68,7 @@ class Talking extends Phaser.Scene {
         // check for spacebar press
         if((Phaser.Input.Keyboard.JustDown(cursors.space)||this.advance) && !this.dialogTyping) {
             // trigger dialog
+            this.dialogsound.play();
             this.typeText();
             if(this.dianumber == 1){
 

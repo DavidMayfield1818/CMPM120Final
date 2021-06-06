@@ -44,6 +44,7 @@ class Load extends Phaser.Scene {
         this.load.audio('bgm2', 'music/music2.wav');
         this.load.audio('heal','soundeffect/health.wav');
         this.load.audio('hit','soundeffect/hit.wav');
+        this.load.audio('nextdialog','soundeffect/nextdialog.wav');
 
         //dialog
         this.load.json('dialog', 'json/dialog.json');
