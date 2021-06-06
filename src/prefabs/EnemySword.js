@@ -6,7 +6,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         this.setCircle(16);
 
         // standard variables
-        this.moveSpeed = 150;
+        this.moveSpeed = 80;
         this.attackSpeed =200;
         this.detectionRadius = 300;
         this.attackRadius = 100;
