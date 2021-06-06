@@ -29,7 +29,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         }
 
         // if in sight
-        if(this.engaged && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 200) {
+        if(this.engaged && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 300) {
             // travel towards player
             // find base vector values AKA set origin to 0,0
             let distX = this.scene.player.x - this.x;

@@ -189,7 +189,7 @@ class Play3 extends Phaser.Scene {
         level1.body.immovable = true; 
         level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
-            this.scene.start('playScene2');
+            this.scene.start('playScene3');
         }, null, this)
     }
 
