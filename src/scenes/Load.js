@@ -25,7 +25,8 @@ class Load extends Phaser.Scene {
         // tile map stuff
         this.load.image('mappng','maptile32.png');
         this.load.tilemapTiledJSON('mapjs','mapjs32.json')
-        this.load.tilemapTiledJSON('mapjs2','mapjs32-level2.json')
+        //this.load.tilemapTiledJSON('mapjs2','mapjs32-level2.json')
+        this.load.tilemapTiledJSON('mapjs2','mapjs32-2.json')
         this.load.image('blackcir','blackcir.png')
 
         // audio stuff
@@ -43,7 +44,8 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('playScene2');
+        //this.scene.start('playScene-level2');
+        this.scene.start('playScene');
         //this.scene.start('talkingScene');
     }
 }

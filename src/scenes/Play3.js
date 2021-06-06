@@ -1,15 +1,15 @@
 
-class Play2 extends Phaser.Scene {
+class Play3 extends Phaser.Scene {
     
     constructor () {
-        super("playScene2");
+        super("playScene3");
         this.attackallow = false;
     }
 
     create() {
         
         // map
-        const map = this.make.tilemap({key:'mapjs2'});
+        const map = this.make.tilemap({key:'mapjs3'});
         const tileset = map.addTilesetImage('maptile','mappng');
         
         this.ground = map.createLayer('ground',tileset);
@@ -189,7 +189,7 @@ class Play2 extends Phaser.Scene {
         level1.body.immovable = true; 
         level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
-            this.scene.start('playScene3');
+            this.scene.start('playScene2');
         }, null, this)
     }
 

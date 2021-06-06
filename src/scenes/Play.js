@@ -31,6 +31,33 @@ class Play extends Phaser.Scene {
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
 
+        
+        
+        // Group that holds the enemies
+        this.enemyGroup = this.physics.add.group({
+            runChildUpdate: true
+        });
+
+        // load position of enemies from map
+        const enemygroupLayer = map.getObjectLayer('enemyla')
+        enemygroupLayer.objects.forEach(enemyobj =>{
+            let enemy = new EnemySword(this,enemyobj.x, enemyobj.y);
+            this.enemyGroup.add(enemy);
+        });
+
+
+        // Group that holds the enemies
+        this.enemyGroupBow = this.physics.add.group({
+            runChildUpdate: true
+        });
+
+        // load position of enemies from map
+        const enemygroupBowLayer = map.getObjectLayer('enemyla2')
+        enemygroupBowLayer.objects.forEach(enemyobj =>{
+            let enemyBow = new EnemyBow(this,enemyobj.x, enemyobj.y);
+            this.enemyGroupBow.add(enemyBow);
+        });
+
         //enenmy area
         this.enareaobj = map.filterObjects("enemyarea",  obj => obj.name === 'enar')
         for(let i= 0; i<this.enareaobj.length; i++){
@@ -50,22 +77,11 @@ class Play extends Phaser.Scene {
             let level1 = this.levelobj[i];
             this.addlevelRectangle(level1.x,level1.y, level1.width, level1.height);
         }
-        
-        // Group that holds the enemies
-        this.enemyGroup = this.physics.add.group({
-            runChildUpdate: true
-        });
-
-        // load position of enemies from map
-        const enemygroupLayer = map.getObjectLayer('enemyla')
-        enemygroupLayer.objects.forEach(enemyobj =>{
-            let enemy = new EnemyBow(this,enemyobj.x, enemyobj.y);
-            this.enemyGroup.add(enemy);
-        });
 
         //map collision
         //this.physics.add.collider(this.player, this.walltile);
         this.physics.add.collider(this.enemyGroup, this.walltile);
+        this.physics.add.collider(this.enemyGroupBow, this.walltile);
 
         // group the arrows
         this.arrowGroup = this.physics.add.group({
@@ -149,27 +165,29 @@ class Play extends Phaser.Scene {
         let enarea1 = this.add.rectangle(x,y,width,heigth, 0x0000FF).setOrigin(0,0);
         this.physics.add.existing(enarea1);
         enarea1.body.immovable = true; 
-
+        enarea1.alpha = 0.001;
         this.physics.add.overlap(this.player, enarea1, function(){
             this.attackallow = true;
         }, null, this)
     }
 
     addAttackoffRectangle(x,y,width, heigth){
-        let attackoff1 = this.add.rectangle(x,y,width,heigth, 0x00FFFF).setOrigin(0,0);
+        let attackoff1 = this.add.rectangle(x,y,width,heigth, 0xFFFFFF).setOrigin(0,0);
         this.physics.add.existing(attackoff1);
         attackoff1.body.immovable = true; 
-
+        attackoff1.alpha = 0.001;
         this.physics.add.overlap(this.player, attackoff1, function(){
             this.attackallow = false;
         }, null, this)
+        this.physics.add.collider(this.enemyGroup, attackoff1)
+        this.physics.add.collider(this.enemyGroupBow, attackoff1)
     }
 
     addlevelRectangle(x,y,width, heigth){
         let level1 = this.add.rectangle(x,y,width,heigth, 0xff0000).setOrigin(0,0);
         this.physics.add.existing(level1);
         level1.body.immovable = true; 
-
+        level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
             this.scene.start('playScene2');
         }, null, this)

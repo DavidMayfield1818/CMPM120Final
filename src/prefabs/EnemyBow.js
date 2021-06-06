@@ -71,14 +71,14 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
             let dy = this.scene.player.y - this.y;
             let rad = Math.atan2(dx,dy);
             this.setRotation(rad + Math.PI);
-            if(this.offCooldown && this.scene.attackallow == true){
+            if(this.offCooldown && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 200){
                 this.attack();
             }
         }
 
         if(this.safe){
             this.body.setVelocity(0,0);
-            if(this.offCooldown && this.scene.attackallow == true){
+            if(this.offCooldown && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 200){
 
                 this.attack();
             }
