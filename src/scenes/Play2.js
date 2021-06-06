@@ -31,7 +31,26 @@ class Play2 extends Phaser.Scene {
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
 
-        
+        // Group that holds the health
+        this.healthGroup = this.physics.add.group({
+            runChildUpdate: true
+        });
+
+        // load position of health from map
+        const healthgroupLayer = map.getObjectLayer('health')
+        healthgroupLayer.objects.forEach(healthobj =>{
+            let health = this.physics.add.image(healthobj.x, healthobj.y,'healthimage').setImmovable();
+            this.physics.add.collider(this.player, health,function(){
+                this.player.walksound.setVolume(0);
+                if(this.player.hp <5){
+                    this.player.hp += 1;
+                    health.destroy();
+                }else{
+                    health.destroy();
+                }
+            }, null, this)
+            this.healthGroup.add(health);
+        });
         
         // Group that holds the enemies
         this.enemyGroup = this.physics.add.group({
@@ -189,6 +208,7 @@ class Play2 extends Phaser.Scene {
         level1.body.immovable = true; 
         level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
+            this.player.walvol = false;s
             this.scene.start('playScene3');
         }, null, this)
     }

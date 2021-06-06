@@ -25,7 +25,7 @@ let config = {
             gravity: { y: 0}
         }
     },
-    scene: [Menu, Load, Talking, Play, Play2, Play3  ,GameOver, Credits]
+    scene: [Menu, Load, Talking, PlayINS, Play, Play2, Play3  ,GameOver, Credits]
 }
 
 

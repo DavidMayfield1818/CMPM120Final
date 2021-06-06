@@ -8,7 +8,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.maxhp = 5;
         this.hp = this.maxhp;
         this.cd = 100;
-
+        this.walvol = true;
         // attack anim booleans
         this.inAttack = false;
         this.attackOnCooldown = false;
@@ -43,12 +43,13 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
 
     update() {
         // determine walking
-        if(this.isMoving && !this.inAttack){
+        if(this.isMoving && !this.inAttack && this.walvol == true){
             this.walksound.setVolume(3);
-        }else{
+
+        }else {
             this.walksound.setVolume(0);
         }
-
+    
         // movement controls will change add directional sprite animations
         if(this.scene.left.isDown && this.scene.up.isDown) {
             this.isMoving = true;

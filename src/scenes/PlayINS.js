@@ -1,15 +1,15 @@
 
-class Play extends Phaser.Scene {
+class PlayINS extends Phaser.Scene {
     
     constructor () {
-        super("playScene");
+        super("playSceneINS");
         this.attackallow = false;
     }
 
     create() {
         
         // map
-        const map = this.make.tilemap({key:'mapjs'});
+        const map = this.make.tilemap({key:'mapjsins'});
         const tileset = map.addTilesetImage('maptile','mappng');
         
         this.ground = map.createLayer('ground',tileset);
@@ -17,7 +17,6 @@ class Play extends Phaser.Scene {
         this.walltile = map.createLayer('wall',tileset);
         this.walltile.setCollisionByProperty({collides: true});
         this.level = map.createLayer('level',tileset);
-
 
         // movement controls set up inputs
         this.left = this.input.keyboard.addKey('A');
@@ -27,11 +26,14 @@ class Play extends Phaser.Scene {
 
         // create the player object
         const p1Spawn = map.findObject('Spawns', obj => obj.name === 'p1Spawn');
-        
+        const ins = map.findObject('instruction',obj => obj.name === 'inst1')
+        const ins2 = map.findObject('instruction',obj => obj.name === 'inst2')
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
-
+        this.inscontrol = this.add.image(ins.x,ins.y, 'ins');
+        this.inslevl2 = this.add.image(ins2.x,ins2.y, 'ins2');
         
+
         // Group that holds the health
         this.healthGroup = this.physics.add.group({
             runChildUpdate: true
@@ -52,6 +54,7 @@ class Play extends Phaser.Scene {
             }, null, this)
             this.healthGroup.add(health);
         });
+
         // Group that holds the enemies
         this.enemyGroup = this.physics.add.group({
             runChildUpdate: true
@@ -206,10 +209,10 @@ class Play extends Phaser.Scene {
         let level1 = this.add.rectangle(x,y,width,heigth, 0xff0000).setOrigin(0,0);
         this.physics.add.existing(level1);
         level1.body.immovable = true; 
-        level1.alpha = 0.001;
+        //level1.alpha = 0.001;
         this.physics.add.overlap(this.player, level1, function(){
             this.player.walvol = false;
-            this.scene.start('playScene2');
+            this.scene.start('playScene');
         }, null, this)
     }
 
