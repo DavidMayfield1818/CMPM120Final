@@ -37,6 +37,8 @@ class Load extends Phaser.Scene {
         this.load.audio('walk_effect', 'walk_effect.wav');
         this.load.audio('slash', 'sword_ex.wav');
         this.load.audio('sword_out', 'sword_out.wav'); //from youtube https://www.youtube.com/watch?v=EgRvVq8mStE
+        this.load.audio('bgm', 'music/music1.wav');
+        this.load.audio('bgm2', 'music/music2.wav');
 
 
         //dialog

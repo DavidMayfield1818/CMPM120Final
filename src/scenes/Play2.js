@@ -7,7 +7,8 @@ class Play2 extends Phaser.Scene {
     }
 
     create() {
-        
+        this.bgm = this.sound.add("bgm2", {volume: 0.05, loop: true}); 
+        this.bgm.play();
         // map
         const map = this.make.tilemap({key:'mapjs2'});
         const tileset = map.addTilesetImage('maptile','mappng');
