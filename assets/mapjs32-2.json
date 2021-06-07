@@ -448,15 +448,15 @@
                  "y":1210.66668333333
                 }, 
                 {
-                 "height":32,
-                 "id":230,
+                 "height":105.333333333333,
+                 "id":232,
                  "name":"attoff",
-                 "rotation":270.368092357923,
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":138.334,
-                 "x":2488.88930846767,
-                 "y":1447.72944922875
+                 "width":41.000666666667,
+                 "x":2479.49966666667,
+                 "y":1324
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -854,7 +854,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":231,
+ "nextobjectid":233,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
