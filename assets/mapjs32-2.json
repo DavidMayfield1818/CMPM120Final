@@ -446,6 +446,17 @@
                  "width":51.667,
                  "x":1410.1665,
                  "y":1210.66668333333
+                }, 
+                {
+                 "height":32,
+                 "id":230,
+                 "name":"attoff",
+                 "rotation":270.368092357923,
+                 "type":"",
+                 "visible":true,
+                 "width":138.334,
+                 "x":2488.88930846767,
+                 "y":1447.72944922875
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -635,7 +646,18 @@
          "draworder":"topdown",
          "id":24,
          "name":"levelobj",
-         "objects":[],
+         "objects":[
+                {
+                 "height":37,
+                 "id":229,
+                 "name":"lvl",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":34,
+                 "x":2687,
+                 "y":1438.83333333333
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -741,18 +763,7 @@
          "draworder":"topdown",
          "id":27,
          "name":"level",
-         "objects":[
-                {
-                 "height":37,
-                 "id":144,
-                 "name":"lvl",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":34,
-                 "x":2685,
-                 "y":1437.74242424242
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -843,7 +854,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":229,
+ "nextobjectid":231,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
