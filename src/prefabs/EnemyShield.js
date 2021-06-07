@@ -6,7 +6,7 @@ class EnemyShield extends Phaser.Physics.Arcade.Sprite {
         this.setCircle(16);
 
         // standard variables
-        this.moveSpeed = 125;
+        this.moveSpeed = 50;
         this.attackSpeed =150;
         this.detectionRadius = 300;
         this.attackRadius = 80;
@@ -33,7 +33,7 @@ class EnemyShield extends Phaser.Physics.Arcade.Sprite {
         }
 
         // if in sight
-        if(this.engaged) {
+        if(this.engaged && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 300) {
             // travel towards player
             // find base vector values AKA set origin to 0,0
             let distX = this.scene.player.x - this.x;

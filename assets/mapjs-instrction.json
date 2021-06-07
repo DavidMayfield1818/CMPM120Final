@@ -131,19 +131,18 @@
                  "width":32,
                  "x":790,
                  "y":771.333333333333
-                }, 
-                {
-                 "gid":8,
-                 "height":32,
-                 "id":286,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":858.666666666667,
-                 "y":1737.33333333333
                 }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":31,
+         "name":"enemyla2",
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -163,8 +162,8 @@
                  "type":"",
                  "visible":true,
                  "width":387,
-                 "x":670.166666666667,
-                 "y":1113
+                 "x":673.166666666667,
+                 "y":1116
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -219,8 +218,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":844,
-                 "y":1180
+                 "x":848,
+                 "y":1165
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -231,8 +230,20 @@
         {
          "draworder":"topdown",
          "id":28,
-         "name":"enemyla2",
-         "objects":[],
+         "name":"enemyla3",
+         "objects":[
+                {
+                 "gid":9,
+                 "height":32,
+                 "id":289,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":847,
+                 "y":1241
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -273,8 +284,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":31,
- "nextobjectid":288,
+ "nextlayerid":32,
+ "nextobjectid":290,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",

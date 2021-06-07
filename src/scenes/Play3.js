@@ -75,6 +75,13 @@ class Play3 extends Phaser.Scene {
             this.enemyGroup.add(enemyBow);
         });
 
+        // load position of enemies from map
+        const enemygroupShieldLayer = map.getObjectLayer('enemyla3')
+        enemygroupShieldLayer.objects.forEach(enemyobj =>{
+            let enemyShield = new EnemyShield(this,enemyobj.x, enemyobj.y);
+            this.enemyGroup.add(enemyShield);
+        });
+        
         //enenmy area
         this.enareaobj = map.filterObjects("enemyarea",  obj => obj.name === 'enar')
         for(let i= 0; i<this.enareaobj.length; i++){

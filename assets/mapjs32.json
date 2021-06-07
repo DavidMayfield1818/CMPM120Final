@@ -355,8 +355,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":878.666666666667,
-                 "y":454.666666666667
+                 "x":886.666666666667,
+                 "y":457.333333333333
                 }, 
                 {
                  "gid":7,
@@ -367,8 +367,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":746,
-                 "y":728
+                 "x":778,
+                 "y":632
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -543,8 +543,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":686.333333333333,
-                 "y":657.666666666667
+                 "x":782.333333333333,
+                 "y":713.666666666667
                 }, 
                 {
                  "gid":3,
@@ -555,8 +555,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":887.333333333333,
-                 "y":354
+                 "x":850,
+                 "y":379.333333333333
                 }, 
                 {
                  "gid":3,
@@ -569,18 +569,6 @@
                  "width":32,
                  "x":1068,
                  "y":398
-                }, 
-                {
-                 "gid":3,
-                 "height":32,
-                 "id":38,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":114,
-                 "y":150
                 }, 
                 {
                  "gid":3,
@@ -634,9 +622,68 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":15,
+         "name":"enemyla3",
+         "objects":[
+                {
+                 "gid":9,
+                 "height":32,
+                 "id":86,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":694.666666666667,
+                 "y":664
+                }, 
+                {
+                 "gid":9,
+                 "height":32,
+                 "id":87,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":936,
+                 "y":378.666666666667
+                }, 
+                {
+                 "gid":9,
+                 "height":32,
+                 "id":89,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":116,
+                 "y":144
+                }, 
+                {
+                 "gid":9,
+                 "height":32,
+                 "id":90,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1072,
+                 "y":482
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":14,
- "nextobjectid":82,
+ "nextlayerid":16,
+ "nextobjectid":91,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
