@@ -70,7 +70,29 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
             let dx = this.x - this.scene.player.x;
             let dy = this.scene.player.y - this.y;
             let rad = Math.atan2(dx,dy);
-            this.setRotation(rad + Math.PI);
+            let angle = Phaser.Math.RadToDeg(rad);
+            angle += 22.5 + 90;
+            angle /= 45;
+            angle = Phaser.Math.FloorTo(angle,0);
+            if(angle == 0) {
+                this.play('bowRight',true);
+            } else if (angle == 1) {
+                this.play('bowDownLeft',true);
+            } else if (angle == 2) {
+                this.play('bowDown',true);
+            } else if (angle == 3) {
+                this.play('bowDownRight',true);
+            } else if (angle == 4) {
+                this.play('bowLeft',true);
+            } else if (angle == 5) {
+                this.play('bowUpRight',true);
+            } else if (angle == 6) {
+                this.play('bowUp',true);
+            } else if (angle == 7) {
+                this.play('bowUpLeft',true);
+            }
+
+
             if(this.offCooldown && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 500){
                 this.attack();
             }
@@ -87,7 +109,14 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
     }
 
     hit(sheathed = false) {
-        this.destroy();
+        this.dead = true;
+        this.play('bowDeath',true);
+        this.scene.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.destroy();
+            }
+        });
     }
 
     updateState() {
@@ -144,5 +173,14 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
         // spawn an arrow
         let curShot = new Arrow(this.scene,this.x,this.y,distX,distY);
         this.scene.arrowGroup.add(curShot).setOrigin(0.5);
+        let vec = new Phaser.Math.Vector2(distX,distY);
+        let angle = Phaser.Math.RadToDeg(vec.angle());
+        angle /= 180;
+        angle = Phaser.Math.FloorTo(angle,0);
+        if(angle == 0) {
+            this.play('bowRightAttack',true);
+        } else if (angle == 1) {
+            this.play('bowLeftAttack',true);
+        }
     }
 }

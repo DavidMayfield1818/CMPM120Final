@@ -20,9 +20,9 @@ class Load extends Phaser.Scene {
         // enemy sprites
         this.load.image('arrowSprite', 'arrow.png');
 
-        this.load.spritesheet('enemypng', 'Ogre set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19});
-        this.load.spritesheet('enemyShield', 'Ogre set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 26});
-        this.load.spritesheet('enemyBow', 'Archer Set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 40});
+        this.load.spritesheet('ogre', 'Ogre set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19});
+        this.load.spritesheet('shield', 'Shield set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 26});
+        this.load.spritesheet('bow', 'Archer Set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 40});
 
         // set up animations
         
@@ -62,7 +62,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('playScene');
-        //this.scene.start('talkingScene');
+        //this.scene.start('playScene');
+        this.scene.start('talkingScene');
     }
 }

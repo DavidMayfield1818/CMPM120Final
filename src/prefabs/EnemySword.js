@@ -31,7 +31,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         if(this.idle) {
             
         }
-
+        
         // if in sight
         if(this.engaged && this.scene.attackallow == true && Phaser.Math.Distance.BetweenPoints(this, this.scene.player) <= 300) {
             // travel towards player
@@ -52,7 +52,29 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
             let dx = this.x - this.scene.player.x;
             let dy = this.scene.player.y - this.y;
             let rad = Math.atan2(dx,dy);
-            this.setRotation(rad + Math.PI);
+            
+            let angle = Phaser.Math.RadToDeg(rad);
+            angle += 22.5 + 90;
+            angle /= 45;
+            angle = Phaser.Math.FloorTo(angle,0);
+            if(angle == 0) {
+                this.play('ogreRight',true);
+            } else if (angle == 1) {
+                this.play('ogreDownLeft',true);
+            } else if (angle == 2) {
+                this.play('ogreDown',true);
+            } else if (angle == 3) {
+                this.play('ogreDownRight',true);
+            } else if (angle == 4) {
+                this.play('ogreLeft',true);
+            } else if (angle == 5) {
+                this.play('ogreUpRight',true);
+            } else if (angle == 6) {
+                this.play('ogreUp',true);
+            } else if (angle == 7) {
+                this.play('ogreUpLeft',true);
+            }
+
         }
 
         // begin attack
@@ -73,7 +95,14 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
 
     hit(sheathed = false) {
         if(this.sheathed) {
-            this.destroy();
+            this.dead = true;
+            this.play('ogreDeath',true);
+            this.scene.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.destroy();
+                }
+            });
         } else {
             this.hp -= 1;
             
@@ -91,7 +120,15 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
             this.curStun = this.stunTime;
 
             if(this.hp<=0) {
-                this.destroy();
+                this.dead = true;
+                this.play('ogreDeath',true);
+                this.scene.time.addEvent({
+                    delay: 1000,
+                    callback: () => {
+                        this.destroy();
+                    }
+                });
+                
             }
         }
     }
@@ -101,7 +138,14 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         let distY = this.scene.player.y - this.y;
         // use those to determine vector length
         let length = Math.sqrt((distX*distX)+(distY*distY));
-        if(this.curStun > 0) {
+        if(this.dead) {
+            this.body.setVelocity(0,0);
+            this.idle = false;
+            this.engaged = false;
+            this.attacking = false;
+            this.inStrike = false;
+            this.setVisible(true);
+        } else if(this.curStun > 0) {
             this.curStun -= 1;
             this.body.setVelocity(0,0);
             this.idle = false;
