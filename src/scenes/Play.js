@@ -121,7 +121,7 @@ class Play extends Phaser.Scene {
         this.blk.setScrollFactor(0);
         // cooldowns
 
-
+        this.animationsetup();
 
     
         // health bar
@@ -196,4 +196,140 @@ class Play extends Phaser.Scene {
         }, null, this)
     }
 
+
+    animationsetup() {
+        // set up animations
+        this.anims.create ({
+            key: 'swordsmanDown',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 0, end: 3})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDownRight',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 4, end: 7})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanRight',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 8, end: 9})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUpRight',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 10, end: 12})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUp',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 13, end: 15})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUpLeft',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 16, end: 18})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanLeft',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 19, end: 20})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDownLeft',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 21, end: 24})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDownAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 25, end: 25})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDownRightAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 26, end: 26})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanRightAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 27, end: 27})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUpRightAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 28, end: 28})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUpAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 29, end: 29})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanUpLeftAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 30, end: 30})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanLeftAttack',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 31, end: 31})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDownLeftAttack',
+            repeat: 0,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 32, end: 32})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanSheath',
+            repeat: 0,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 33, end: 37})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanDeath',
+            repeat: 0,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 38, end: 43})
+        });
+
+        this.anims.create ({
+            key: 'swordsmanIdle',
+            repeat: -1,
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers('swordsman',{start: 0, end: 0})
+        });
+    }
 }

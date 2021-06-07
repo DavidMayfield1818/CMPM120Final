@@ -10,17 +10,22 @@ class Load extends Phaser.Scene {
         this.load.image('Background', 'tempBackground.png');
 
         // swordsman and attack sprites
-        this.load.image('swordsman', 'swordsman.png');
         this.load.image('slash', 'slash.png');
         this.load.image('marker', 'star.png');
 
+        this.load.spritesheet('swordsman', 'Samurai Set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 43});
+
+        
+
         // enemy sprites
-        this.load.image('enemypng', 'enemies.png');
-        this.load.image('enemySword', 'enemy_sword.png');
-        this.load.image('enemyShield', 'enemy_shield.png');
-        this.load.image('enemySpear', 'enemy_spear.png');
-        this.load.image('enemyBow', 'enemy_bow.png');
         this.load.image('arrowSprite', 'arrow.png');
+
+        this.load.spritesheet('enemypng', 'Ogre set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19});
+        this.load.spritesheet('enemyShield', 'Ogre set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 26});
+        this.load.spritesheet('enemyBow', 'Archer Set-Sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 40});
+
+        // set up animations
+        
         
         // tile map stuff
         this.load.image('mappng','maptile32.png');
@@ -56,7 +61,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        //this.scene.start('theEndScene');
-        this.scene.start('talkingScene');
+        this.scene.start('playScene');
+        //this.scene.start('talkingScene');
     }
 }

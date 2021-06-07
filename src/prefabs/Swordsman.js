@@ -52,51 +52,53 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         }
     
         // movement controls will change add directional sprite animations
-        if(this.scene.left.isDown && this.scene.up.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed * -0.7);
-            this.setVelocityY(this.moveSpeed * -0.7);
-            this.setAngle(315);
-        } else if(this.scene.left.isDown && this.scene.down.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed * -0.7);
-            this.setVelocityY(this.moveSpeed * 0.7);
-            this.setAngle(225);
-        } else if(this.scene.right.isDown && this.scene.up.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed * 0.7);
-            this.setVelocityY(this.moveSpeed * -0.7);
-            this.setAngle(45);
-        } else if(this.scene.right.isDown && this.scene.down.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed * 0.7);
-            this.setVelocityY(this.moveSpeed * 0.7);
-            this.setAngle(135);
-        } else if(this.scene.left.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed * -1);
-            this.setVelocityY(0);
-            this.setAngle(270);
-        } else if(this.scene.right.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(this.moveSpeed);
-            this.setVelocityY(0);
-            this.setAngle(90);
-        } else if(this.scene.up.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(0);
-            this.setVelocityY(this.moveSpeed * -1);
-            this.setAngle(0);
-        } else if(this.scene.down.isDown) {
-            this.isMoving = true;
-            this.setVelocityX(0);
-            this.setVelocityY(this.moveSpeed);
-            this.setAngle(180);
-        } else {
-            this.isMoving = false;
-            this.setVelocityX(0);
-            this.setVelocityY(0);
-            this.movespeed /= 2.5;
+        if(!this.inAttack) {
+            if(this.scene.left.isDown && this.scene.up.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed * -0.7);
+                this.setVelocityY(this.moveSpeed * -0.7);
+                this.play('swordsmanUpLeft',true);
+            } else if(this.scene.left.isDown && this.scene.down.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed * -0.7);
+                this.setVelocityY(this.moveSpeed * 0.7);
+                this.play('swordsmanDownLeft',true);
+            } else if(this.scene.right.isDown && this.scene.up.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed * 0.7);
+                this.setVelocityY(this.moveSpeed * -0.7);
+                this.play('swordsmanUpRight',true);
+            } else if(this.scene.right.isDown && this.scene.down.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed * 0.7);
+                this.setVelocityY(this.moveSpeed * 0.7);
+                this.play('swordsmanDownRight',true);
+            } else if(this.scene.left.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed * -1);
+                this.setVelocityY(0);
+                this.play('swordsmanLeft',true);
+            } else if(this.scene.right.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(this.moveSpeed);
+                this.setVelocityY(0);
+                this.play('swordsmanRight',true);
+            } else if(this.scene.up.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(0);
+                this.setVelocityY(this.moveSpeed * -1);
+                this.play('swordsmanUp',true);
+            } else if(this.scene.down.isDown) {
+                this.isMoving = true;
+                this.setVelocityX(0);
+                this.setVelocityY(this.moveSpeed);
+                this.play('swordsmanDown',true);
+            } else {
+                this.isMoving = false;
+                this.setVelocityX(0);
+                this.setVelocityY(0);
+                this.play('swordsmanIdle',true);
+            }
         }
         // collide with wall
         this.scene.physics.collide(this,this.scene.walltile);
@@ -135,6 +137,29 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
                 }
             });
 
+            let vec = new Phaser.Math.Vector2(distX,distY);
+            let angle = Phaser.Math.RadToDeg(vec.angle());
+            angle += 22.5;
+            angle /= 45;
+            angle = Phaser.Math.FloorTo(angle,0);
+            if(angle == 0) {
+                this.play('swordsmanRightAttack',true);
+            } else if (angle == 1) {
+                this.play('swordsmanDownLeftAttack',true);
+            } else if (angle == 2) {
+                this.play('swordsmanDownAttack',true);
+            } else if (angle == 3) {
+                this.play('swordsmanDownRightAttack',true);
+            } else if (angle == 4) {
+                this.play('swordsmanLeftAttack',true);
+            } else if (angle == 5) {
+                this.play('swordsmanUpRightAttack',true);
+            } else if (angle == 6) {
+                this.play('swordsmanUpAttack',true);
+            } else if (angle == 7) {
+                this.play('swordsmanUpLeftAttack',true);
+            }
+
             // add to group of slashes
             // if full remove oldest
             if(this.scene.slashGroup.isFull())
@@ -163,6 +188,9 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         if(!this.sheathOnCooldown){
             this.inAnim(2000,0);
             this.moveSpeed = 0;
+            this.play('swordsmanSheath',true);
+            this.setVelocityX(0);
+            this.setVelocityY(0);
 
             let counter = 0;
             this.scene.slashGroup.children.entries.forEach(element => {
