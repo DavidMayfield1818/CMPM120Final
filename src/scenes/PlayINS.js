@@ -31,6 +31,7 @@ class PlayINS extends Phaser.Scene {
         const p1Spawn = map.findObject('Spawns', obj => obj.name === 'p1Spawn');
         const ins = map.findObject('instruction',obj => obj.name === 'inst1')
         const ins2 = map.findObject('instruction',obj => obj.name === 'inst2')
+        const ins3 = map.findObject('instruction',obj => obj.name === 'inst3')
         //this.player = new Swordsman (this,game.config.width/4,game.config.height/4).setOrigin(0.5);
         this.player = new Swordsman (this, p1Spawn.x, p1Spawn.y);
         
@@ -131,6 +132,7 @@ class PlayINS extends Phaser.Scene {
 
         this.inscontrol = this.add.image(ins.x,ins.y, 'insw');
         this.inslevl2 = this.add.image(ins2.x,ins2.y, 'ins2w');
+        this.insshield = this.add.image(ins3.x,ins3.y, 'ins3w');
         // cooldowns
 
 
