@@ -158,9 +158,14 @@ class Play extends Phaser.Scene {
 
 
     gameOver() {
-        this.scene.pause();
-        this.scene.start('gameOverScene');
-
+        this.player.play('swordsmanDeath',true);
+        this.time.addEvent({
+            delay: 3000,
+            callback: () => {
+                this.scene.pause();
+                this.scene.start('gameOverScene');
+            }
+        });
     }
 
     addEnareaRectangle(x,y,width, heigth){
@@ -199,6 +204,9 @@ class Play extends Phaser.Scene {
 
     animationsetup() {
         // set up animations
+        // --------------------------------------------------------------------
+        // player animations
+        // --------------------------------------------------------------------
         this.anims.create ({
             key: 'swordsmanDown',
             repeat: -1,
@@ -321,7 +329,7 @@ class Play extends Phaser.Scene {
         this.anims.create ({
             key: 'swordsmanDeath',
             repeat: 0,
-            frameRate: 10,
+            frameRate: 2,
             frames: this.anims.generateFrameNumbers('swordsman',{start: 38, end: 43})
         });
 
@@ -331,5 +339,10 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             frames: this.anims.generateFrameNumbers('swordsman',{start: 0, end: 0})
         });
+
+        // --------------------------------------------------------------------
+        // player animations
+        // --------------------------------------------------------------------
+
     }
 }

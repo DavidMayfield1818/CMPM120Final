@@ -43,66 +43,69 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        // determine walking
-        if(this.isMoving && !this.inAttack && this.walvol == true){
-            this.walksound.setVolume(3);
+        if(this.hp<=0) {
+            this.play('swordsmanDeath',true);
+        } else {
+            // determine walking
+            if(this.isMoving && !this.inAttack && this.walvol == true){
+                this.walksound.setVolume(3);
 
-        }else {
-            this.walksound.setVolume(0);
-        }
-    
-        // movement controls will change add directional sprite animations
-        if(!this.inAttack) {
-            if(this.scene.left.isDown && this.scene.up.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed * -0.7);
-                this.setVelocityY(this.moveSpeed * -0.7);
-                this.play('swordsmanUpLeft',true);
-            } else if(this.scene.left.isDown && this.scene.down.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed * -0.7);
-                this.setVelocityY(this.moveSpeed * 0.7);
-                this.play('swordsmanDownLeft',true);
-            } else if(this.scene.right.isDown && this.scene.up.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed * 0.7);
-                this.setVelocityY(this.moveSpeed * -0.7);
-                this.play('swordsmanUpRight',true);
-            } else if(this.scene.right.isDown && this.scene.down.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed * 0.7);
-                this.setVelocityY(this.moveSpeed * 0.7);
-                this.play('swordsmanDownRight',true);
-            } else if(this.scene.left.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed * -1);
-                this.setVelocityY(0);
-                this.play('swordsmanLeft',true);
-            } else if(this.scene.right.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(this.moveSpeed);
-                this.setVelocityY(0);
-                this.play('swordsmanRight',true);
-            } else if(this.scene.up.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(0);
-                this.setVelocityY(this.moveSpeed * -1);
-                this.play('swordsmanUp',true);
-            } else if(this.scene.down.isDown) {
-                this.isMoving = true;
-                this.setVelocityX(0);
-                this.setVelocityY(this.moveSpeed);
-                this.play('swordsmanDown',true);
-            } else {
-                this.isMoving = false;
-                this.setVelocityX(0);
-                this.setVelocityY(0);
-                this.play('swordsmanIdle',true);
+            }else {
+                this.walksound.setVolume(0);
             }
+        
+            // movement controls will change add directional sprite animations
+            if(!this.inAttack) {
+                if(this.scene.left.isDown && this.scene.up.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed * -0.7);
+                    this.setVelocityY(this.moveSpeed * -0.7);
+                    this.play('swordsmanUpLeft',true);
+                } else if(this.scene.left.isDown && this.scene.down.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed * -0.7);
+                    this.setVelocityY(this.moveSpeed * 0.7);
+                    this.play('swordsmanDownLeft',true);
+                } else if(this.scene.right.isDown && this.scene.up.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed * 0.7);
+                    this.setVelocityY(this.moveSpeed * -0.7);
+                    this.play('swordsmanUpRight',true);
+                } else if(this.scene.right.isDown && this.scene.down.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed * 0.7);
+                    this.setVelocityY(this.moveSpeed * 0.7);
+                    this.play('swordsmanDownRight',true);
+                } else if(this.scene.left.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed * -1);
+                    this.setVelocityY(0);
+                    this.play('swordsmanLeft',true);
+                } else if(this.scene.right.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(this.moveSpeed);
+                    this.setVelocityY(0);
+                    this.play('swordsmanRight',true);
+                } else if(this.scene.up.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(0);
+                    this.setVelocityY(this.moveSpeed * -1);
+                    this.play('swordsmanUp',true);
+                } else if(this.scene.down.isDown) {
+                    this.isMoving = true;
+                    this.setVelocityX(0);
+                    this.setVelocityY(this.moveSpeed);
+                    this.play('swordsmanDown',true);
+                } else {
+                    this.isMoving = false;
+                    this.setVelocityX(0);
+                    this.setVelocityY(0);
+                    this.play('swordsmanIdle',true);
+                }
+            }
+            // collide with wall
+            this.scene.physics.collide(this,this.scene.walltile);
         }
-        // collide with wall
-        this.scene.physics.collide(this,this.scene.walltile);
-
     }
 
     attack(inX, inY) {
