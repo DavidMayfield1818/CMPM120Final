@@ -48,7 +48,7 @@ class Play2 extends Phaser.Scene {
                     this.player.hp = 5;
                     health.destroy();
                 } else {
-                    this.destroy();
+                    health.destroy();
                 }
             }, null, this)
             this.healthGroup.add(health);
