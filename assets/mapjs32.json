@@ -380,7 +380,18 @@
          "draworder":"topdown",
          "id":10,
          "name":"levelobj",
-         "objects":[],
+         "objects":[
+                {
+                 "height":32,
+                 "id":81,
+                 "name":"lvl",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":31.3333333333333,
+                 "x":257.333333333333,
+                 "y":1120
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -625,7 +636,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":81,
+ "nextobjectid":82,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
