@@ -43,12 +43,12 @@ class Play2 extends Phaser.Scene {
         healthgroupLayer.objects.forEach(healthobj =>{
             let health = this.physics.add.image(healthobj.x, healthobj.y,'healthimage').setImmovable();
             this.physics.add.collider(this.player, health,function(){
-                this.healsound.play();
                 if(this.player.hp <5){
-                    this.player.hp += 1;
+                    this.healsound.play()
+                    this.player.hp = 5;
                     health.destroy();
-                }else{
-                    health.destroy();
+                } else {
+                    this.destroy();
                 }
             }, null, this)
             this.healthGroup.add(health);
@@ -119,17 +119,7 @@ class Play2 extends Phaser.Scene {
         this.blk = this.add.image(0,0,'blackcir').setOrigin(0);
         this.blk.setScrollFactor(0);
         // cooldowns
-        this.cooldownConfig = {
-            fontFamily: 'Courier',
-            fontSize: '20px',
-            color: '#FFFFFF',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
+
 
 
     
@@ -152,13 +142,6 @@ class Play2 extends Phaser.Scene {
         this.cdBar.setAngle(180);
 
         this.cameras.main.startFollow(this.player,true);
-        
-
-        this.attackText = this.add.text(10,50,'attack:' + this.attackallow, this.cooldownConfig);
-        this.attackText.setScrollFactor(0);
-
-
-        
     }
 
     update() {
@@ -170,8 +153,6 @@ class Play2 extends Phaser.Scene {
         
         this.hpBar.scaleX = this.player.hp/this.player.maxhp;
         this.cdBar.scaleX = this.player.cd/100;
-
-        this.attackText.text = 'attack: ' + this.attackallow;
     }
 
 
@@ -200,7 +181,6 @@ class Play2 extends Phaser.Scene {
             this.attackallow = false;
         }, null, this)
         this.physics.add.collider(this.enemyGroup, attackoff1)
-        this.physics.add.collider(this.enemyGroupBow, attackoff1)
     }
 
     addlevelRectangle(x,y,width, heigth){
