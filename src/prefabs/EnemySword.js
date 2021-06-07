@@ -6,10 +6,14 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         this.setCircle(16);
 
         // standard variables
-        this.moveSpeed = 80;
-        this.attackSpeed =200;
+        this.moveSpeed = 70;
+        this.attackSpeed = 175;
         this.detectionRadius = 300;
         this.attackRadius = 100;
+        this.hp = 2;
+        this.stunTime = 30; // aka frames
+        this.curStun = 0;
+        this.knockback = -10;
 
         // state variables
         this.idle = true;
@@ -68,7 +72,28 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
     }
 
     hit(sheathed = false) {
-        this.destroy();
+        if(this.sheathed) {
+            this.destroy();
+        } else {
+            this.hp -= 1;
+            
+            let distX = this.scene.player.x - this.x;
+            let distY = this.scene.player.y - this.y;
+            // use those to determine vector length
+            let length = Math.sqrt((distX*distX)+(distY*distY));
+            distX /= length;
+            distY /= length;
+            // multiply by distance; 1*x = x
+            distX *= this.knockback;
+            distY *= this.knockback;
+            this.x += distX;
+            this.y += distY;
+            this.curStun = this.stunTime;
+
+            if(this.hp<=0) {
+                this.destroy();
+            }
+        }
     }
 
     updateState() {
@@ -76,7 +101,15 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         let distY = this.scene.player.y - this.y;
         // use those to determine vector length
         let length = Math.sqrt((distX*distX)+(distY*distY));
-        if(length > this.detectionRadius) {
+        if(this.curStun > 0) {
+            this.curStun -= 1;
+            this.body.setVelocity(0,0);
+            this.idle = false;
+            this.engaged = true;
+            this.attacking = false;
+            this.inStrike = false;
+            this.setVisible(true);
+        } else if(length > this.detectionRadius) {
             this.idle = true;
             this.engaged = false;
             this.attacking = false;

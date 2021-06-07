@@ -98,6 +98,12 @@ class EnemyShield extends Phaser.Physics.Arcade.Sprite {
         let length = Math.sqrt((distX*distX)+(distY*distY));
         if(this.curStun > 0) {
             this.curStun -= 1;
+            this.body.setVelocity(0,0);
+            this.idle = false;
+            this.engaged = true;
+            this.attacking = false;
+            this.inStrike = false;
+            this.setVisible(true);
         } else if(length > this.detectionRadius) {
             this.idle = true;
             this.engaged = false;

@@ -1,8 +1,8 @@
 // Kendrick le
 // Longyu Li
 // David Mayfield
-// Alien 
-// completed on : ##/##/####
+// The Lone Sword 
+// completed on : 06/07/2021
 
 // game configs
 let config = {

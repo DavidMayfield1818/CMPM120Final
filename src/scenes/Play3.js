@@ -7,6 +7,7 @@ class Play3 extends Phaser.Scene {
     }
 
     create() {
+        console.log('play3');
         this.bgm = this.sound.add("bgm2", {volume: 0.05, loop: true}); 
         this.bgm.play();
         this.healsound = this.sound.add("heal",{volume:0.5,});
@@ -67,17 +68,11 @@ class Play3 extends Phaser.Scene {
             this.enemyGroup.add(enemy);
         });
 
-
-        // Group that holds the enemies
-        this.enemyGroupBow = this.physics.add.group({
-            runChildUpdate: true
-        });
-
         // load position of enemies from map
         const enemygroupBowLayer = map.getObjectLayer('enemyla2')
         enemygroupBowLayer.objects.forEach(enemyobj =>{
             let enemyBow = new EnemyBow(this,enemyobj.x, enemyobj.y);
-            this.enemyGroupBow.add(enemyBow);
+            this.enemyGroup.add(enemyBow);
         });
 
         //enenmy area
@@ -103,7 +98,6 @@ class Play3 extends Phaser.Scene {
         //map collision
         //this.physics.add.collider(this.player, this.walltile);
         this.physics.add.collider(this.enemyGroup, this.walltile);
-        this.physics.add.collider(this.enemyGroupBow, this.walltile);
 
         // group the arrows
         this.arrowGroup = this.physics.add.group({
@@ -203,7 +197,6 @@ class Play3 extends Phaser.Scene {
             this.attackallow = false;
         }, null, this)
         this.physics.add.collider(this.enemyGroup, attackoff1)
-        this.physics.add.collider(this.enemyGroupBow, attackoff1)
     }
 
     addlevelRectangle(x,y,width, heigth){

@@ -7,7 +7,6 @@ class Play2 extends Phaser.Scene {
     }
 
     create() {
-        
         // map
         const map = this.make.tilemap({key:'mapjs2'});
         const tileset = map.addTilesetImage('maptile','mappng');

@@ -15,8 +15,8 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.sheathOnCooldown = false;
 
         // distance values
-        this.attackRange = 35;
-        this.baseMoveSpeed = 150;
+        this.attackRange = 40;
+        this.baseMoveSpeed = 200;
         this.moveSpeed = this.baseMoveSpeed;
         
         // movement sfx variables
