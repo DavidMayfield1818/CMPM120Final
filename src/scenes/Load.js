@@ -39,6 +39,7 @@ class Load extends Phaser.Scene {
         this.load.image('ins2','ins2.png');
         this.load.image('insw','inswhite.png');
         this.load.image('ins2w','ins2white.png');
+        this.load.image('ins3w','ins3white.png');
 
         this.load.image('healthimage', 'health.png');
         // audio stuff
