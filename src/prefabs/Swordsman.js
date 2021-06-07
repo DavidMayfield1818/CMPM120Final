@@ -45,6 +45,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
     update() {
         if(this.hp<=0) {
             this.play('swordsmanDeath',true);
+            this.hp = 0;
         } else {
             // determine walking
             if(this.isMoving && !this.inAttack && this.walvol == true){

@@ -158,7 +158,6 @@ class Play extends Phaser.Scene {
 
 
     gameOver() {
-        this.player.play('swordsmanDeath',true);
         this.time.addEvent({
             delay: 3000,
             callback: () => {
