@@ -29,7 +29,7 @@ class EnemyShield extends Phaser.Physics.Arcade.Sprite {
         this.updateState();
         // if idle look for player
         if(this.idle) {
-            
+            this.play('shieldIdle',true);
         }
 
         // if in sight

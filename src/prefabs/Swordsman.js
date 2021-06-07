@@ -13,6 +13,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         this.inAttack = false;
         this.attackOnCooldown = false;
         this.sheathOnCooldown = false;
+        this.dead = false;
 
         // distance values
         this.attackRange = 40;
@@ -30,7 +31,7 @@ class Swordsman extends Phaser.Physics.Arcade.Sprite {
         // mouse input
         this.scene.input.mouse.disableContextMenu();
         this.scene.input.on('pointerdown', function(pointer){
-            if(!this.inAttack) {
+            if(!this.inAttack || !this.dead) {
                 if(pointer.rightButtonDown()){
                     this.sheath();
                 } else {

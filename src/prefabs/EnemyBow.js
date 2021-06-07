@@ -28,7 +28,7 @@ class EnemyBow extends Phaser.Physics.Arcade.Sprite {
         this.updateState();
         // if idle look for player
         if(this.idle) {
-            
+            this.play('bowIdle',true);
         }
         // if in sight
         if(this.engaged && this.scene.attackallow == true) {

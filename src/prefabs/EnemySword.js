@@ -29,7 +29,7 @@ class EnemySword extends Phaser.Physics.Arcade.Sprite {
         this.updateState();
         // if idle look for player
         if(this.idle) {
-            
+            this.play('ogreIdle',true);
         }
         
         // if in sight
