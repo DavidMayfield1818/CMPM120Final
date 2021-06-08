@@ -172,6 +172,7 @@ class PlayINS extends Phaser.Scene {
 
 
     gameOver() {
+        this.bgm.stop();
         this.scene.pause();
         this.scene.start('gameOverScene');
 

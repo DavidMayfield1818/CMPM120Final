@@ -5,10 +5,11 @@ class Credits extends Phaser.Scene {
 
     preload() {
         // add a load of background scene here
-
+        this.load.audio('slash', 'assets/sword_ex.wav');
     }
 
     create() {
+        let sfxslash = this.sound.add('slash');
         let menuConfigTitle = {
             fontFamily: 'Viner Hand ITC',
             fontSize: '40px',
@@ -61,11 +62,11 @@ class Credits extends Phaser.Scene {
         h += increment + space;
         this.add.text(game.config.width/2, h, 'Longyu Li', menuConfigBold).setOrigin(0.5);
         h += increment;
-        this.add.text(game.config.width/2, h, 'Map Generation', menuConfig).setOrigin(0.5);
-        h += increment;
-        this.add.text(game.config.width/2, h, 'Map Interaction', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, h, 'Map Generation/Interaction', menuConfig).setOrigin(0.5);
         h += increment;
         this.add.text(game.config.width/2, h, 'Dialogue Implementaion', menuConfig).setOrigin(0.5);
+        h += increment;
+        this.add.text(game.config.width/2, h, 'Music and soundeffect', menuConfig).setOrigin(0.5);
         h += increment + space;
         this.add.text(game.config.width/2, h, 'Kendrick Le', menuConfigBold).setOrigin(0.5);
         h += increment;
@@ -86,6 +87,7 @@ class Credits extends Phaser.Scene {
         });
 
         menuButton.on('pointerover', function () {
+            sfxslash.play()
             menuButton.setColor('#25e5fa')
         });
 

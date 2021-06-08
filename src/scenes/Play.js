@@ -161,6 +161,7 @@ class Play extends Phaser.Scene {
         this.time.addEvent({
             delay: 3000,
             callback: () => {
+                this.bgm.stop();
                 this.scene.pause();
                 this.scene.start('gameOverScene');
             }

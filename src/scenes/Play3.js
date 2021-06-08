@@ -162,6 +162,7 @@ class Play3 extends Phaser.Scene {
 
 
     gameOver() {
+        this.bgm.stop();
         this.scene.pause();
         this.scene.start('gameOverScene');
 
@@ -196,7 +197,7 @@ class Play3 extends Phaser.Scene {
         this.physics.add.overlap(this.player, level1, function(){
             this.player.walvol = false;
             this.bgm.stop();
-            this.scene.start('playScene3');
+            this.scene.start('theEndScene');
         }, null, this)
     }
 

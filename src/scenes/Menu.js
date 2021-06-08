@@ -5,10 +5,11 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // add a load of background scene here
-
+        this.load.audio('slash', 'assets/sword_ex.wav');
     }
 
     create() {
+        let sfxslash = this.sound.add('slash');
         let menuConfig = {
             fontFamily: 'Viner Hand ITC',
             fontSize: '40px',
@@ -34,6 +35,7 @@ class Menu extends Phaser.Scene {
         });
 
         startButton.on('pointerover', function () {
+            sfxslash.play();
             startButton.setColor('#25e5fa')
         });
 
@@ -47,6 +49,7 @@ class Menu extends Phaser.Scene {
         });
 
         creditsButton.on('pointerover', function () {
+            sfxslash.play();
             creditsButton.setColor('#25e5fa')
         });
 
